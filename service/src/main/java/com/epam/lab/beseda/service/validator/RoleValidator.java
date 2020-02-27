@@ -1,0 +1,39 @@
+package com.epam.lab.beseda.service.validator;
+
+import com.epam.lab.beseda.dto.EnumEntityDTO;
+import com.epam.lab.beseda.exception.IrregularLengthException;
+import com.epam.lab.beseda.exception.IrregularStringFormatException;
+import com.epam.lab.beseda.exception.NullValueException;
+import com.epam.lab.beseda.exception.ValidationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+import java.util.regex.Pattern;
+
+import static com.epam.lab.beseda.util.DBEntityTable.NAME;
+import static com.epam.lab.beseda.util.ServiceConstants.*;
+
+@Component
+public class RoleValidator implements Validatable<EnumEntityDTO> {
+
+    @Autowired
+    @Qualifier("nonStringValuePattern")
+    private Pattern pattern;
+
+    @Override
+    public void validate(EnumEntityDTO entity) throws ValidationException {
+        if (entity == null) {
+            throw new NullValueException();
+        } else if (entity.getName() == null) {
+            throw new NullValueException(NAME);
+        }
+
+        if (pattern.matcher(entity.getName()).find()) {
+            throw new IrregularStringFormatException(NAME, ALPHABETIC_VALUE);
+        } else if (entity.getName().length() < MIN_ENUM_VALUE_LENGTH
+                || entity.getName().length() > MAX_ENUM_VALUE_LENGTH) {
+            throw new IrregularLengthException(NAME, MAX_ENUM_VALUE_LENGTH);
+        }
+    }
+}
