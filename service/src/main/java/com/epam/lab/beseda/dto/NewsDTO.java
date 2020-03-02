@@ -1,47 +1,37 @@
 package com.epam.lab.beseda.dto;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
-public class NewsDTO extends BaseDTO {
+public class NewsDTO extends BaseDTO implements Comparable<NewsDTO> {
 
-    private String authorName;
-    private String authorSurname;
+    private AuthorDTO author;
 
     private String title;
     private String shortText;
     private String fullText;
-    private GregorianCalendar creationDate;
-    private GregorianCalendar modificationDate;
+    private LocalDate creationDate;
+    private LocalDate modificationDate;
 
-    private List<String> tags = new ArrayList<>();
+    private Set<String> tags = new HashSet<>();
 
     public NewsDTO() {
     }
 
-    public NewsDTO(String authorName, String authorSurname, String title, String shortText, String fullText) {
-        this.authorName = authorName;
-        this.authorSurname = authorSurname;
+    public NewsDTO(AuthorDTO author, String title, String shortText, String fullText) {
+        this.author = author;
         this.title = title;
         this.shortText = shortText;
         this.fullText = fullText;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public AuthorDTO getAuthor() {
+        return author;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public String getAuthorSurname() {
-        return authorSurname;
-    }
-
-    public void setAuthorSurname(String authorSurname) {
-        this.authorSurname = authorSurname;
+    public void setAuthor(AuthorDTO author) {
+        this.author = author;
     }
 
     public String getTitle() {
@@ -68,23 +58,23 @@ public class NewsDTO extends BaseDTO {
         this.fullText = fullText;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(Set<String> tags) {
         this.tags = tags;
     }
 
-    public GregorianCalendar getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(GregorianCalendar creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
-    public GregorianCalendar getModificationDate() {
+    public LocalDate getModificationDate() {
         return modificationDate;
     }
 
-    public void setModificationDate(GregorianCalendar modificationDate) {
+    public void setModificationDate(LocalDate modificationDate) {
         this.modificationDate = modificationDate;
     }
 
@@ -96,7 +86,12 @@ public class NewsDTO extends BaseDTO {
         return tags.remove(tag);
     }
 
-    public List<String> getTags() {
+    public Set<String> getTags() {
         return tags;
+    }
+
+    @Override
+    public int compareTo(NewsDTO newsDTO) {
+        return this.id - newsDTO.getId();
     }
 }

@@ -1,15 +1,14 @@
 package com.epam.lab.beseda.service.validator;
 
-import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
-import com.epam.lab.beseda.exception.IrregularLengthException;
-import com.epam.lab.beseda.exception.NullValueException;
-import com.epam.lab.beseda.exception.ValidationException;
+import com.epam.lab.beseda.exception.validation.IrregularLengthException;
+import com.epam.lab.beseda.exception.validation.NullValueException;
+import com.epam.lab.beseda.exception.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Set;
 
 import static com.epam.lab.beseda.util.DBEntityTable.*;
 import static com.epam.lab.beseda.util.ServiceConstants.*;
@@ -30,7 +29,7 @@ public class NewsValidator implements Validatable<NewsDTO> {
     public void validate(NewsDTO entity) throws ValidationException {
         this.validateNullValues(entity);
         this.validateFieldsLength(entity);
-        authorValidator.validate(new AuthorDTO(entity.getAuthorName(), entity.getAuthorSurname()));
+        authorValidator.validate(entity.getAuthor());
         validateTags(entity.getTags());
     }
 
@@ -59,7 +58,7 @@ public class NewsValidator implements Validatable<NewsDTO> {
         }
     }
 
-    private void validateTags(List<String> tags) throws IrregularLengthException {
+    private void validateTags(Set<String> tags) throws IrregularLengthException {
         for (String tag : tags) {
             if (tag.length() < MIN_ENUM_VALUE_LENGTH || tag.length() > MAX_ENUM_VALUE_LENGTH) {
                 throw new IrregularLengthException(TAG, MIN_ENUM_VALUE_LENGTH, MAX_ENUM_VALUE_LENGTH);

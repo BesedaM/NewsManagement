@@ -18,23 +18,25 @@ import com.epam.lab.beseda.service.modelmapper.Mapper;
 import com.epam.lab.beseda.service.modelmapper.NewsMapper;
 import com.epam.lab.beseda.service.serviceinterface.NewsServiceInterface;
 import com.epam.lab.beseda.service.validator.NewsValidator;
+import com.epam.lab.beseda.service.validator.TagValidator;
 import com.epam.lab.beseda.service.validator.Validatable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class NewsService extends AbstractService<News, NewsDTO> implements NewsServiceInterface {
 
     @Autowired
-//    @Qualifier("authorDAO")
     private AuthorDAO authorDAO;
 
     @Autowired
-//    @Qualifier("tagDAO")
+    @Qualifier("tagDao")
     private TagDAO tagDAO;
 
     @Autowired
@@ -45,10 +47,14 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
     @Qualifier("authorMapper")
     private AuthorMapper authorMapper;
 
+    @Autowired
+    @Qualifier("tagValidator")
+    private TagValidator tagValidator;
+
     public NewsService() {
     }
 
-    public NewsService(AuthorDAO authorDAO, NewsDAO newsDAO, TagDAO tagDAO, NewsValidator validator, NewsMapper mapper,
+    public NewsService(AuthorDAO authorDAO, NewsDAO newsDAO, TagDAO tagDAO, NewsValidator validator, TagValidator tagValidator, NewsMapper mapper,
                        AuthorMapper authorMapper, EnumEntityMapper enumEntityMapper) {
         super(newsDAO, validator, mapper);
         this.authorDAO = authorDAO;
@@ -58,7 +64,6 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
     }
 
     @Autowired
-//    @Qualifier("newsDAO")
     @Override
     protected void setDao(AbstractDAO<News> dao) {
         this.dao = dao;
@@ -71,6 +76,7 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
         this.validator = validator;
     }
 
+    @Autowired
     @Override
     @Qualifier("newsMapper")
     protected void setMapper(Mapper<News, NewsDTO> mapper) {
@@ -82,10 +88,14 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
         List<News> newsList = dao.getAll();
         List<NewsDTO> newsDTOList = new ArrayList<>();
         for (News news : newsList) {
+            NewsDTO newsDTO = mapper.toDto(news);
             int authorId = ((NewsDAO) dao).getAuthorId(news.getId());
             Author author = authorDAO.getEntityById(authorId);
-            news.setAuthor(author);
-            newsDTOList.add(mapper.toDto(news));
+            newsDTO.setAuthor(authorMapper.toDto(author));
+            newsDTOList.add(newsDTO);
+            List<String> tags = ((NewsDAO) dao).getNewsTagsNames(news.getId());
+            Set<String> tagsSet = new HashSet<>(tags);
+            newsDTO.setTags(tagsSet);
         }
         return newsDTOList;
     }
@@ -93,24 +103,26 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
     @Override
     public NewsDTO getDtoById(int id) {
         News news = dao.getEntityById(id);
+        NewsDTO newsDTO = mapper.toDto(news);
         int authorId = ((NewsDAO) dao).getAuthorId(id);
         Author author = authorDAO.getEntityById(authorId);
-        news.setAuthor(author);
-        return mapper.toDto(news);
+        AuthorDTO authorDTO = authorMapper.toDto(author);
+        newsDTO.setAuthor(authorDTO);
+        return newsDTO;
     }
 
     @Override
-    public void add(NewsDTO dto) throws ServiceLayerException {
-        super.add(dto);
-        Author author = new Author(dto.getAuthorName(), dto.getAuthorSurname());
+    public void add(NewsDTO newsDTO) throws ServiceLayerException {
+        super.add(newsDTO);
+        Author author = authorMapper.toEntity(newsDTO.getAuthor());
         try {
             authorDAO.add(author);
         } catch (DAOLayerException e) {
             throw new ServiceLayerException(e);
         }
-        ((NewsDAO) dao).addAuthor(dto.getId(), author.getId());
+        ((NewsDAO) dao).addAuthor(newsDTO.getId(), author.getId());
 
-        List<String> tagsNames = dto.getTags();
+        Set<String> tagsNames = newsDTO.getTags();
         for (String tagName : tagsNames) {
             EnumEntity tag = tagDAO.getEntityByName(tagName);
             if (tag == null) {
@@ -121,35 +133,47 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
                     throw new ServiceLayerException(e);
                 }
             }
-            ((NewsDAO) dao).addAuthor(dto.getId(), tag.getId());
+            ((NewsDAO) dao).addNewsTag(newsDTO.getId(), tag.getId());
         }
     }
 
 
     @Override
-    public void update(NewsDTO dto) throws ServiceLayerException {
-        super.update(dto);
-        Author author = new Author(dto.getAuthorName(), dto.getAuthorSurname());
+    public void update(NewsDTO newsDTO) throws ServiceLayerException {
+        super.update(newsDTO);
+        Author author = authorMapper.toEntity(newsDTO.getAuthor());
         try {
             authorDAO.add(author);
         } catch (DAOLayerException e) {
             throw new ServiceLayerException(e);
         }
-        ((NewsDAO) dao).addAuthor(dto.getId(), author.getId());
+        ((NewsDAO) dao).addAuthor(newsDTO.getId(), author.getId());
+    }
 
-        List<String> tagsNames = dto.getTags();
-        List<EnumEntity> tags = new ArrayList<>();
-        for (String tagName : tagsNames) {
+    @Override
+    public void addNewsTags(int newsId, List<String> tags) throws ServiceLayerException {
+        for (String tagName : tags) {
             EnumEntity tag = tagDAO.getEntityByName(tagName);
             if (tag == null) {
                 tag = new EnumEntity(tagName);
                 try {
+                    tagValidator.validate(enumEntityMapper.toDto(tag));
                     tagDAO.add(tag);
                 } catch (DAOLayerException e) {
                     throw new ServiceLayerException(e);
                 }
             }
-            ((NewsDAO) dao).addAuthor(dto.getId(), tag.getId());
+            ((NewsDAO) dao).addNewsTag(newsId, tag.getId());
+        }
+    }
+
+    @Override
+    public void deleteNewsTags(int newsId, List<String> tags) {
+        for (String tagName : tags) {
+            EnumEntity tag = tagDAO.getEntityByName(tagName);
+            if (tag != null) {
+                ((NewsDAO) dao).deleteNewsTag(newsId, tag.getId());
+            }
         }
     }
 
@@ -158,19 +182,6 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
     public int getNewsNumber() {
         return ((NewsDAO) dao).getNewsNumber();
     }
-
-
-    @Override
-    public void addNewsTag(int newsId, int tagId) {
-        ((NewsDAO) dao).addNewsTag(newsId, tagId);
-    }
-
-
-    @Override
-    public void deleteNewsTag(int newsId, int tagId) {
-        ((NewsDAO) dao).deleteNewsTag(newsId, tagId);
-    }
-
 
     @Override
     public List<String> getNewsTagsNames(int newsId) {

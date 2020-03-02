@@ -1,13 +1,14 @@
 package com.epam.lab.beseda.entity;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class News extends BaseEntity {
     private String title;
     private String short_text;
     private String full_text;
-    private GregorianCalendar creationDate;
-    private GregorianCalendar modificationDate;
+    private LocalDate creationDate;
+    private LocalDate modificationDate;
     private Author author;
     private List<EnumEntity> tagList;
 
@@ -18,7 +19,7 @@ public class News extends BaseEntity {
         this.title = title;
         this.short_text = short_text;
         this.full_text = full_text;
-        this.creationDate = new GregorianCalendar();
+        this.creationDate = LocalDate.now();
         this.modificationDate = this.creationDate;
     }
 
@@ -27,11 +28,11 @@ public class News extends BaseEntity {
         this.short_text = short_text;
         this.full_text = full_text;
         this.author = author;
-        this.creationDate = new GregorianCalendar();
+        this.creationDate = LocalDate.now();
         this.modificationDate = this.creationDate;
     }
 
-    public News(String title, String short_text, String full_text, GregorianCalendar creationDate) {
+    public News(String title, String short_text, String full_text, LocalDate creationDate) {
         this.title = title;
         this.short_text = short_text;
         this.full_text = full_text;
@@ -55,11 +56,11 @@ public class News extends BaseEntity {
         this.full_text = full_text;
     }
 
-    public void setCreationDate(GregorianCalendar creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
-    public void setModificationDate(GregorianCalendar modificationDate) {
+    public void setModificationDate(LocalDate modificationDate) {
         this.modificationDate = modificationDate;
     }
 
@@ -83,11 +84,11 @@ public class News extends BaseEntity {
         return full_text;
     }
 
-    public GregorianCalendar getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public GregorianCalendar getModificationDate() {
+    public LocalDate getModificationDate() {
         return modificationDate;
     }
 

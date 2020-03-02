@@ -1,9 +1,9 @@
 package com.epam.lab.beseda.dao.entitydao;
 
 import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
+import com.epam.lab.beseda.entity.BaseEntity;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.util.DBEntityTable;
-import com.epam.lab.beseda.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -27,6 +27,7 @@ public abstract class AbstractDAO<E extends BaseEntity> implements AbstractDAOIn
     protected ResultSetExtractor<E> rsExtractor;
 
     protected Object[] entityParam;
+
 
     protected AbstractDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

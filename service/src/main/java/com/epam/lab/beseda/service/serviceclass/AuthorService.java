@@ -7,6 +7,7 @@ import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
 import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.entity.News;
+import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.modelmapper.AuthorMapper;
 import com.epam.lab.beseda.service.modelmapper.Mapper;
 import com.epam.lab.beseda.service.modelmapper.NewsMapper;
@@ -34,7 +35,6 @@ public class AuthorService extends AbstractService<Author, AuthorDTO> implements
     }
 
     @Autowired
-//    @Qualifier("newsDAO")
     private NewsDAO newsDao;
 
     @Autowired
@@ -42,7 +42,6 @@ public class AuthorService extends AbstractService<Author, AuthorDTO> implements
     private NewsMapper newsMapper;
 
     @Autowired
-//    @Qualifier("authorDAO")
     @Override
     protected void setDao(AbstractDAO<Author> dao) {
         this.dao = dao;
@@ -61,6 +60,11 @@ public class AuthorService extends AbstractService<Author, AuthorDTO> implements
     @Override
     protected void setMapper(Mapper<Author, AuthorDTO> mapper) {
         this.mapper = mapper;
+    }
+
+    @Override
+    public void add(AuthorDTO dto) throws ServiceLayerException {
+        super.add(dto);
     }
 
     @Override

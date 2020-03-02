@@ -7,10 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.GregorianCalendar;
 
 import static com.epam.lab.beseda.util.DBEntityTable.*;
-import static com.epam.lab.beseda.util.DBEntityTable.MODIFICATION_DATE;
 
 @Component
 public class NewsExtractor implements ResultSetExtractor<News> {
@@ -24,12 +22,8 @@ public class NewsExtractor implements ResultSetExtractor<News> {
             news.setTitle(resultSet.getString(TITLE));
             news.setShortText(resultSet.getString(SHORT_TEXT));
             news.setFullText(resultSet.getString(FULL_TEXT));
-            GregorianCalendar creationDate = new GregorianCalendar();
-            creationDate.setTime(resultSet.getDate(CREATION_DATE));
-            news.setCreationDate(creationDate);
-            GregorianCalendar modificationDate = new GregorianCalendar();
-            creationDate.setTime(resultSet.getDate(MODIFICATION_DATE));
-            news.setModificationDate(modificationDate);
+            news.setCreationDate(resultSet.getDate(CREATION_DATE).toLocalDate());
+            news.setModificationDate(resultSet.getDate(MODIFICATION_DATE).toLocalDate());
         }
         return news;
     }

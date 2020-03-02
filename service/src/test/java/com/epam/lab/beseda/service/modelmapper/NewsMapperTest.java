@@ -1,6 +1,7 @@
 package com.epam.lab.beseda.service.modelmapper;
 
 import com.epam.lab.beseda.configuration.ModelMapperConfiguration;
+import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
 import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.entity.News;
@@ -18,7 +19,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 public class NewsMapperTest {
 
     @Autowired
-//    @Qualifier("newsMapper")
     private NewsMapper mapper;
 
     private News news;
@@ -26,7 +26,7 @@ public class NewsMapperTest {
 
     {
         news = new News("Title", "Short_text", "Full_text", new Author("Aleksei", "Petrov"));
-        newsDTO = new NewsDTO("Aleksei", "Petrov", "Title", "Short_text", "Full_text");
+        newsDTO = new NewsDTO(new AuthorDTO("Aleksei", "Petrov"), "Title", "Short_text", "Full_text");
     }
 
     @Test

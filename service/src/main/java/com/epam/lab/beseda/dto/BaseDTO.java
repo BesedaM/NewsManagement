@@ -1,9 +1,10 @@
 package com.epam.lab.beseda.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class BaseDTO {
-    private int id;
+public abstract class BaseDTO implements Serializable {
+    protected int id;
 
     public BaseDTO() {
     }

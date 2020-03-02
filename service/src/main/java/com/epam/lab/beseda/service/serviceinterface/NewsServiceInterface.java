@@ -3,6 +3,7 @@ package com.epam.lab.beseda.service.serviceinterface;
 import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
+import com.epam.lab.beseda.exception.ServiceLayerException;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ public interface NewsServiceInterface extends AbstractServiceInterface<NewsDTO>{
 
     int getNewsNumber();
 
-    void addNewsTag(int newsId, int tagId);
+    void addNewsTags(int newsId, List<String> tags) throws ServiceLayerException;
 
-    void deleteNewsTag(int newsId, int tagId);
+    void deleteNewsTags(int newsId, List<String> tags);
 
     List<String> getNewsTagsNames(int newsId);
 

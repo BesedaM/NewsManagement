@@ -8,7 +8,7 @@ import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.User;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
-import com.epam.lab.beseda.exception.ValidationException;
+import com.epam.lab.beseda.exception.validation.ValidationException;
 import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
 import com.epam.lab.beseda.service.modelmapper.UserMapper;
 import com.epam.lab.beseda.service.validator.UserValidator;
@@ -184,7 +184,6 @@ public class UserServiceTest {
     public void testGetUserByLogin_no_such_user() {
         when(userDao.getUserByLogin(anyString())).thenReturn(null);
         Mockito.when(mapper.toDto(null)).thenReturn(null);
-        Mockito.when(userDao.getRole(anyInt())).thenReturn(new EnumEntity());
 
         UserDTO receivedUser = service.getUserByLogin("gg");
         verify(userDao, atMostOnce()).getUserByLogin(anyString());
@@ -200,12 +199,12 @@ public class UserServiceTest {
 
     @Test
     public void testGetRole() {
-        Mockito.when(enumEntityMapper.toEntity(any(EnumEntityDTO.class))).thenReturn(new EnumEntity());
-        int id = 1;
+        Mockito.when(enumEntityMapper.toDto(any(EnumEntity.class))).thenReturn(new EnumEntityDTO());
         EnumEntity role = new EnumEntity();
-        when(userDao.getRole(id)).thenReturn(role);
-        EnumEntityDTO receivedRole = service.getRole(id);
+        when(userDao.getRole(anyInt())).thenReturn(role);
+        EnumEntityDTO receivedRole = service.getRole(1);
         verify(userDao, atMostOnce()).getRole(anyInt());
+        Assert.assertEquals(new EnumEntityDTO(), receivedRole);
     }
 
 }

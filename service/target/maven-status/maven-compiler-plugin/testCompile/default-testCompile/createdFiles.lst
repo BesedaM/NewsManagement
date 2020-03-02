@@ -1,0 +1,17 @@
+com\epam\lab\beseda\service\modelmapper\AuthorMapperTest.class
+com\epam\lab\beseda\service\serviceclass\TagServiceTest.class
+com\epam\lab\beseda\service\modelmapper\NewsMapperTest.class
+com\epam\lab\beseda\service\validator\AuthorValidatorTest.class
+com\epam\lab\beseda\service\ServiceTestSuite.class
+com\epam\lab\beseda\service\validator\NewsValidatorTest.class
+com\epam\lab\beseda\service\validator\RoleValidatorTest.class
+com\epam\lab\beseda\service\validator\UserValidatorTest.class
+com\epam\lab\beseda\service\serviceclass\RoleServiceTest.class
+com\epam\lab\beseda\service\serviceclass\UserServiceTest.class
+com\epam\lab\beseda\service\serviceclass\AuthorServiceTest.class
+com\epam\lab\beseda\service\serviceclass\NewsServiceTest.class
+com\epam\lab\beseda\service\validator\TagValidatorTest.class
+com\epam\lab\beseda\service\modelmapper\EnumEntityMapperTest.class
+com\epam\lab\beseda\service\modelmapper\UserMapperTest.class
+com\epam\lab\beseda\service\ValidatorTestSuite.class
+com\epam\lab\beseda\service\ModelMapperTestSuite.class

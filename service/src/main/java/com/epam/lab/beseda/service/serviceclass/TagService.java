@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("tagService")
 public class TagService extends EnumEntityService {
 
     public TagService() {
@@ -22,7 +22,7 @@ public class TagService extends EnumEntityService {
     }
 
     @Autowired
-//    @Qualifier("tagDAO")
+    @Qualifier("tagDao")
     @Override
     protected void setDao(AbstractDAO<EnumEntity> dao) {
         this.dao = dao;

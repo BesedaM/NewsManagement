@@ -1,10 +1,10 @@
 package com.epam.lab.beseda.service.validator;
 
 import com.epam.lab.beseda.dto.UserDTO;
-import com.epam.lab.beseda.exception.IrregularLengthException;
-import com.epam.lab.beseda.exception.IrregularStringFormatException;
-import com.epam.lab.beseda.exception.NullValueException;
-import com.epam.lab.beseda.exception.ValidationException;
+import com.epam.lab.beseda.exception.validation.IrregularLengthException;
+import com.epam.lab.beseda.exception.validation.IrregularStringFormatException;
+import com.epam.lab.beseda.exception.validation.NullValueException;
+import com.epam.lab.beseda.exception.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

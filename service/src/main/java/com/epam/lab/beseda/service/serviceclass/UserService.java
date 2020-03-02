@@ -7,6 +7,7 @@ import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.dto.UserDTO;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.User;
+import com.epam.lab.beseda.exception.EntityExistsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
 import com.epam.lab.beseda.service.modelmapper.Mapper;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.epam.lab.beseda.util.ServiceConstants.USER_WITH_LOGIN_EXISTS;
+
 @Service
 public class UserService extends AbstractService<User, UserDTO> implements UserServiceInterface {
 
@@ -32,7 +35,7 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
     private EnumEntityMapper enumEntityMapper;
 
     @Autowired
-//    @Qualifier("roleDAO")
+    @Qualifier("roleDao")
     private RoleDAO roleDAO;
 
     public UserService(UserDAO userDAO, RoleDAO roleDAO, UserValidator validator, UserMapper mapper, EnumEntityMapper enumEntityMapper) {
@@ -42,7 +45,6 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
     }
 
     @Autowired
-//    @Qualifier("userDAO")
     @Override
     protected void setDao(AbstractDAO<User> dao) {
         this.dao = dao;
@@ -86,19 +88,19 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
 
     @Override
     public void add(UserDTO dto) throws ServiceLayerException {
-        super.add(dto);
-        EnumEntity enumEntity = roleDAO.getEntityByName(dto.getRole());
-        ((UserDAO) dao).setRole(dto.getId(), enumEntity.getId());
+        if (((UserDAO) dao).getUserByLogin(dto.getLogin()) == null) {
+            super.add(dto);
+            EnumEntity enumEntity = roleDAO.getEntityByName(dto.getRole());
+            ((UserDAO) dao).setRole(dto.getId(), enumEntity.getId());
+        } else {
+            throw new EntityExistsException(USER_WITH_LOGIN_EXISTS);
+        }
     }
 
     @Override
     public void update(UserDTO dto) throws ServiceLayerException {
         super.update(dto);
         EnumEntity enumEntity = roleDAO.getEntityByName(dto.getRole());
-
-        System.out.println(dto.getId());
-        System.out.println(enumEntity.getId());
-
         ((UserDAO) dao).setRole(dto.getId(), enumEntity.getId());
     }
 

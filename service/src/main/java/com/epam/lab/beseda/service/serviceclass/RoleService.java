@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("roleService")
 public class RoleService extends EnumEntityService {
 
     public RoleService() {
@@ -22,7 +22,7 @@ public class RoleService extends EnumEntityService {
     }
 
     @Autowired
-//    @Qualifier("roleDAO")
+    @Qualifier("roleDao")
     @Override
     protected void setDao(AbstractDAO<EnumEntity> dao) {
         this.dao = dao;

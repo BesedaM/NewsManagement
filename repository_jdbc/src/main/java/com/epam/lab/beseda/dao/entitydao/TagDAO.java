@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import static com.epam.lab.beseda.util.DBEntityTable.T_TAG;
 
-@Repository
+@Repository("tagDao")
 public class TagDAO extends EnumEntityDAO{
 
     public TagDAO(JdbcTemplate jdbcTemplate) {

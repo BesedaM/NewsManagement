@@ -14,8 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -33,17 +31,9 @@ public class NewsDAOTest {
     @BeforeClass
     public static void initData() {
         entity = new News("NEW", "1111", "123456789");
-        LocalDate now = LocalDate.now();
-        GregorianCalendar currentDate = new GregorianCalendar();
-        currentDate.set(Calendar.YEAR, now.getYear());
-        currentDate.set(Calendar.MONTH, now.getMonthValue());
-        currentDate.set(Calendar.DAY_OF_MONTH, now.getDayOfMonth());
-        currentDate.set(Calendar.HOUR, 0);
-        currentDate.set(Calendar.MINUTE, 0);
-        currentDate.set(Calendar.SECOND, 0);
-        currentDate.set(Calendar.MILLISECOND, 0);
-        entity.setCreationDate(currentDate);
-        entity.setModificationDate(currentDate);
+        LocalDate now = LocalDate.of(2000,10,10);
+        entity.setCreationDate(now);
+        entity.setModificationDate(now);
     }
 
     @Before

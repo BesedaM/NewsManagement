@@ -34,6 +34,7 @@ public class Query {
 
     // News DAO
     public static final String SELECT_ALL_NEWS;
+    public static final String SELECT_ALL_NEWS_WITH_AUTHORS_TAGS;
     public static final String SELECT_NEWS_BY_ID_LIST;
     public static final String SELECT_NEWS_BY_ID;
 
@@ -92,6 +93,15 @@ public class Query {
 
         // News DAO
         SELECT_ALL_NEWS = "SELECT * FROM news_management.news";
+        SELECT_ALL_NEWS_WITH_AUTHORS_TAGS = "Select news.id, news.title, news.short_text, news.full_text, author.name , author.surname,\n" +
+                "news.creation_date, news.modification_date, \n" +
+                "STRING_AGG(tag.name, ' ' ORDER BY tag.name) from news_management.news \n" +
+                "left join news_management.news_tag ON news.id=news_tag.news_id\n" +
+                "left join news_management.tag ON news_tag.tag_id=tag.id\n" +
+                "left join news_management.news_author ON news.id=news_author.news_id\n" +
+                "left join news_management.author ON news_author.author_id=author.id\n" +
+                "GROUP BY news.id, author.name, author.surname;";
+
         SELECT_NEWS_BY_ID = "SELECT * FROM news_management.news WHERE id=?";
         SELECT_NEWS_BY_ID_LIST = "SELECT * FROM news_management.news WHERE id IN (?)";
         DELETE_NEWS_BY_ID = "DELETE FROM news_management.news WHERE id=?";

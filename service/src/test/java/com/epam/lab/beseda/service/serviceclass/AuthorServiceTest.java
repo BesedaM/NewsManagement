@@ -8,7 +8,7 @@ import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.entity.News;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
-import com.epam.lab.beseda.exception.ValidationException;
+import com.epam.lab.beseda.exception.validation.ValidationException;
 import com.epam.lab.beseda.service.modelmapper.AuthorMapper;
 import com.epam.lab.beseda.service.modelmapper.NewsMapper;
 import com.epam.lab.beseda.service.validator.AuthorValidator;

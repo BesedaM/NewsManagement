@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import static com.epam.lab.beseda.util.DBEntityTable.*;
@@ -48,8 +49,8 @@ public class NewsDAO extends AbstractDAO<News> implements NewsDAOInterface {
         sqlParameterSource.addValue(TITLE, entity.getTitle());
         sqlParameterSource.addValue(SHORT_TEXT, entity.getShortText());
         sqlParameterSource.addValue(FULL_TEXT, entity.getFullText());
-        sqlParameterSource.addValue(CREATION_DATE, entity.getCreationDate());
-        sqlParameterSource.addValue(MODIFICATION_DATE, entity.getModificationDate());
+        sqlParameterSource.addValue(CREATION_DATE, Date.valueOf(entity.getCreationDate()));
+        sqlParameterSource.addValue(MODIFICATION_DATE, Date.valueOf(entity.getModificationDate()));
         return sqlParameterSource;
     }
 

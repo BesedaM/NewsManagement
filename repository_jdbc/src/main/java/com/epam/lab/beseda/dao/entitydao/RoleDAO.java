@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import static com.epam.lab.beseda.util.DBEntityTable.T_ROLES;
 
-@Repository
+@Repository("roleDao")
 public class RoleDAO extends EnumEntityDAO{
 
     public RoleDAO(JdbcTemplate jdbcTemplate) {

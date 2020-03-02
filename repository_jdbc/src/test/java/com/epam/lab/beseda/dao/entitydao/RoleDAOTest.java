@@ -20,7 +20,7 @@ import java.util.List;
 public class RoleDAOTest {
 
     @Autowired
-    @Qualifier("roleDAO")
+    @Qualifier("roleDao")
     private EnumEntityDAOInterface roleDao;
 
     private static EnumEntity entity;

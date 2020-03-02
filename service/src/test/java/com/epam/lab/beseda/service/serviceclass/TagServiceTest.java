@@ -5,7 +5,7 @@ import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
-import com.epam.lab.beseda.exception.ValidationException;
+import com.epam.lab.beseda.exception.validation.ValidationException;
 import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
 import com.epam.lab.beseda.service.validator.TagValidator;
 import org.junit.Assert;

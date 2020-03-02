@@ -21,7 +21,7 @@ import java.util.List;
 public class TagDAOTest {
 
     @Autowired
-    @Qualifier("tagDAO")
+    @Qualifier("tagDao")
     private EnumEntityDAOInterface tagDao;
 
     private static EnumEntity entity;
