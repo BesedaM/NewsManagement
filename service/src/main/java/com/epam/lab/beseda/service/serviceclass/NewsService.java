@@ -126,6 +126,8 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
         Author author = authorDAO.getEntityById(authorId);
         AuthorDTO authorDTO = authorMapper.toDto(author);
         newsDTO.setAuthor(authorDTO);
+        List<String> tagList = ((NewsDAO) dao).getNewsTagsNames(id);
+        newsDTO.setTags(new HashSet<>(tagList));
         return newsDTO;
     }
 
@@ -170,18 +172,21 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
 
     @Override
     public void addNewsTags(int newsId, List<String> tags) throws ServiceLayerException {
+        List<String> currentTags = ((NewsDAO) dao).getNewsTagsNames(newsId);
         for (String tagName : tags) {
-            EnumEntity tag = tagDAO.getEntityByName(tagName);
-            if (tag == null) {
-                tag = new EnumEntity(tagName);
-                try {
-                    tagValidator.validate(enumEntityMapper.toDto(tag));
-                    tagDAO.add(tag);
-                } catch (DAOLayerException e) {
-                    throw new ServiceLayerException(e);
+            if (!currentTags.contains(tagName)) {
+                EnumEntity tag = tagDAO.getEntityByName(tagName);
+                if (tag == null) {
+                    tag = new EnumEntity(tagName);
+                    try {
+                        tagValidator.validate(enumEntityMapper.toDto(tag));
+                        tagDAO.add(tag);
+                    } catch (DAOLayerException e) {
+                        throw new ServiceLayerException(e);
+                    }
                 }
+                ((NewsDAO) dao).addNewsTag(newsId, tag.getId());
             }
-            ((NewsDAO) dao).addNewsTag(newsId, tag.getId());
         }
     }
 

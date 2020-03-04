@@ -118,8 +118,6 @@ public class UserDAOTest {
 
     @Test
     public void getUserBylogin_noSuchUser() throws DAOLayerException {
-        int id = userDao.add(entity);
-        entity.setId(id);
         User user = userDao.getUserByLogin("1254");
         Assert.assertNull(user);
     }

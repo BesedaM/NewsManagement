@@ -114,6 +114,7 @@ public class NewsServiceTest {
         Mockito.when(authorMapper.toDto(any(Author.class))).thenReturn(new AuthorDTO());
         Mockito.when(authorDAO.getEntityById(anyInt())).thenReturn(new Author());
         Mockito.when(newsDao.getAuthorId(anyInt())).thenReturn(10);
+        Mockito.when(newsDao.getNewsTagsNames(anyInt())).thenReturn(new ArrayList<>());
 
         NewsDTO receivedNews = service.getDtoById(id);
         Mockito.verify(newsDao, times(1)).getEntityById(id);
@@ -228,6 +229,7 @@ public class NewsServiceTest {
         List<String> tags = new ArrayList<>();
         tags.add("one");
         tags.add("two");
+        Mockito.when(newsDao.getNewsTagsNames(anyInt())).thenReturn(new ArrayList<>());
         Mockito.when(tagDAO.getEntityByName(anyString())).thenReturn(null);
         Mockito.when(tagMapper.toDto(any(EnumEntity.class))).thenReturn(new EnumEntityDTO("12345"));
         Mockito.doNothing().when(tagValidator).validate(any(EnumEntityDTO.class));

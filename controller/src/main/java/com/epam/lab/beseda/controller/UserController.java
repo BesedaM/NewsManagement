@@ -41,9 +41,9 @@ public class UserController {
         return userDTO;
     }
 
-    @PutMapping("/")
-    public UserDTO updateUser(@RequestBody UserDTO user) throws ServiceLayerException {
-        UserDTO userDTO = service.getDtoById(user.getId());
+    @PutMapping("/{id}")
+    public UserDTO updateUser(@PathVariable("id") int id, @RequestBody UserDTO user) throws ServiceLayerException {
+        UserDTO userDTO = service.getDtoById(id);
         if (user.getName() != null) {
             userDTO.setName(user.getName());
         }

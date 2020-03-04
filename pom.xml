@@ -146,7 +146,7 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.0.0-M3</version>
           <configuration>
-            <skipTests>false</skipTests>
+            <skipTests>true</skipTests>
             <includes>
               <include>**/com.epam.lab.beseda.dao.DAOTestSuite.java</include>
               <include>**/com.epam.lab.beseda.service.ModelMapperTestSuite.java</include>

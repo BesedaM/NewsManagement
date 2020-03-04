@@ -16,9 +16,11 @@ C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\l
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\modelmapper\NewsMapper.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\validator\UserValidator.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\serviceinterface\NewsServiceInterface.java
+C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\search\NewsSearchByAuthorCriteria.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\serviceclass\UserService.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\dto\BaseDTO.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\modelmapper\Mapper.java
+C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\search\NewsSearchByTagsCriteria.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\serviceclass\EnumEntityService.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\configuration\ServiceValidatorConfig.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\exception\EntityExistsException.java
@@ -27,7 +29,7 @@ C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\l
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\dto\EnumEntityDTO.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\serviceclass\TagService.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\validator\Validatable.java
-C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\search\NewsSearchByTagsCriteria.java
+C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\search\NewsSearchCriteria.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\configuration\ServiceConfiguration.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\exception\validation\ValidationException.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\validator\AuthorValidator.java
@@ -36,8 +38,6 @@ C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\l
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\serviceclass\AbstractService.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\validator\NewsValidator.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\util\ServiceConstants.java
-C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\search\NewsSearchCriteria.java
-C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\search\NewsSearchByAuthorCriteria.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\serviceinterface\AuthorServiceInterface.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\exception\ServiceLayerException.java
 C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\service\src\main\java\com\epam\lab\beseda\service\modelmapper\AbstractMapper.java

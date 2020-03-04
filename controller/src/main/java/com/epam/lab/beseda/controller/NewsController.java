@@ -38,6 +38,46 @@ public class NewsController {
         return service.getAll();
     }
 
+    @GetMapping("/{id}")
+    public NewsDTO getNews(@PathVariable("id") int id) {
+        return service.getDtoById(id);
+    }
+
+    @PostMapping("/")
+    public NewsDTO addNews(@RequestBody NewsDTO newsDTO) throws ServiceLayerException, NotEnoughArgumentsException {
+        if (newsDTO.getAuthor() == null
+                || newsDTO.getTitle() == null
+                || newsDTO.getShortText() == null
+                || newsDTO.getFullText() == null) {
+            throw new NotEnoughArgumentsException(NEWS_DATA_REQUIRED);
+        }
+        newsDTO.setCreationDate(LocalDate.now());
+        newsDTO.setModificationDate(LocalDate.now());
+        this.service.add(newsDTO);
+        return newsDTO;
+    }
+
+    @PutMapping("/{id}")
+    public NewsDTO updateNews(@PathVariable("id") int id, @RequestBody NewsDTO news) throws ServiceLayerException {
+        NewsDTO newsDTO = service.getDtoById(id);
+        if (news.getTitle() != null) {
+            newsDTO.setTitle(news.getTitle());
+        }
+        if (news.getShortText() != null) {
+            newsDTO.setShortText(news.getShortText());
+        }
+        if (news.getFullText() != null) {
+            newsDTO.setFullText(news.getFullText());
+        }
+        if (news.getAuthor() != null) {
+            newsDTO.setAuthor(news.getAuthor());
+        }
+        newsDTO.setModificationDate(LocalDate.now());
+        service.update(newsDTO);
+        return newsDTO;
+    }
+
+
     @GetMapping("/sort/{sortParam}")
     public List<NewsDTO> getAllNewsSortedByParameter(@PathVariable("sortParam") String param) throws ServiceLayerException {
         return service.getAllSorted(param);
@@ -65,56 +105,16 @@ public class NewsController {
         return newsDTOList;
     }
 
-
-    @GetMapping("/{id}")
-    public NewsDTO getNews(@PathVariable("id") int id) {
+    @PutMapping("/{id}/tags/")
+    public NewsDTO addNewsTags(@PathVariable int id, @RequestBody List<String> tags) throws ServiceLayerException {
+        service.addNewsTags(id, tags);
         return service.getDtoById(id);
     }
 
-    @PostMapping("/")
-    public NewsDTO addNews(@RequestBody NewsDTO newsDTO) throws ServiceLayerException, NotEnoughArgumentsException {
-        if (newsDTO.getAuthor() == null
-                || newsDTO.getTitle() == null
-                || newsDTO.getShortText() == null
-                || newsDTO.getFullText() == null) {
-            throw new NotEnoughArgumentsException(NEWS_DATA_REQUIRED);
-        }
-        newsDTO.setCreationDate(LocalDate.now());
-        newsDTO.setModificationDate(LocalDate.now());
-        this.service.add(newsDTO);
-        return newsDTO;
-    }
-
-    @PutMapping("/")
-    public NewsDTO updateNews(@RequestBody NewsDTO news) throws ServiceLayerException {
-        NewsDTO newsDTO = service.getDtoById(news.getId());
-        if (news.getTitle() != null) {
-            newsDTO.setTitle(news.getTitle());
-        }
-        if (news.getShortText() != null) {
-            newsDTO.setShortText(news.getShortText());
-        }
-        if (news.getFullText() != null) {
-            newsDTO.setFullText(news.getFullText());
-        }
-        if (news.getAuthor() != null) {
-            newsDTO.setAuthor(news.getAuthor());
-        }
-        newsDTO.setModificationDate(LocalDate.now());
-        service.update(newsDTO);
-        return newsDTO;
-    }
-
-    @PutMapping("/tags/{id}/")
-    public List<String> addNewsTags(@PathVariable int id, @RequestBody List<String> tags) throws ServiceLayerException {
-        service.addNewsTags(id, tags);
-        return service.getNewsTagsNames(id);
-    }
-
-    @DeleteMapping("/tags/{id}/")
-    public List<String> deleteNewsTags(@PathVariable int id, @RequestBody List<String> tags) throws ServiceLayerException {
+    @DeleteMapping("/{id}/tags/")
+    public NewsDTO deleteNewsTags(@PathVariable int id, @RequestBody List<String> tags) throws ServiceLayerException {
         service.deleteNewsTags(id, tags);
-        return service.getNewsTagsNames(id);
+        return service.getDtoById(id);
     }
 
 

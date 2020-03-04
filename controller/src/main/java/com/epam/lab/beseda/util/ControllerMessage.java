@@ -9,6 +9,7 @@ public class ControllerMessage {
     public static final String NEWS_WITH_ID;
     public static final String NEWS_DATA_REQUIRED;
     public static final String FULL_AUTHOR_DATA_REQUIRED;
+    public static final String AUTHOR_ID_REQUIRED;
     public static final String TAGS_LIST_REQUIRED;
     public static final String FULL_USER_DATA_REQUIRED;
 
@@ -22,6 +23,7 @@ public class ControllerMessage {
         NEWS_DATA_REQUIRED = "You have to specify all the required fields, " +
                 "such as 'author', 'title', 'shortText', 'fullText'. The field 'tags' is not necessary";
         FULL_AUTHOR_DATA_REQUIRED = "You have to specify the author data, such as: 'name', 'surname'";
+        AUTHOR_ID_REQUIRED="You have to specify all the author data, such as:'id', 'name', 'surname'";
         TAGS_LIST_REQUIRED = "Tags list must contain of at least one tag";
         FULL_USER_DATA_REQUIRED = "You have to specify all the fields, " +
                 "such as 'name', 'surname', 'login', 'password', 'role'";

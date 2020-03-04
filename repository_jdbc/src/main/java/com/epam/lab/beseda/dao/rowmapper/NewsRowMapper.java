@@ -34,13 +34,15 @@ public class NewsRowMapper implements RowMapper<News> {
             author.setSurname(resultSet.getString(SURNAME));
             news.setAuthor(author);
             String taglist = resultSet.getString(TAGS_LIST);
-            Set<String> tagSet = new HashSet<>();
-            String[] tagArr = taglist.split(SPACE_SYMBOL);
-            for (String element :
-                    tagArr) {
-                tagSet.add(element);
+            if (taglist != null) {
+                Set<String> tagSet = new HashSet<>();
+                String[] tagArr = taglist.split(SPACE_SYMBOL);
+                for (String element :
+                        tagArr) {
+                    tagSet.add(element);
+                }
+                news.setTags(tagSet);
             }
-            news.setTags(tagSet);
         }
         return news;
     }

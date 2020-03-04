@@ -39,9 +39,9 @@ public class AuthorController {
         return author;
     }
 
-    @PutMapping("/")
-    public AuthorDTO updateAuthor(@RequestBody AuthorDTO author) throws ServiceLayerException {
-        AuthorDTO authorDTO = service.getDtoById(author.getId());
+    @PutMapping("/{id}")
+    public AuthorDTO updateAuthor(@PathVariable("id") int id, @RequestBody AuthorDTO author) throws ServiceLayerException, NotEnoughArgumentsException {
+        AuthorDTO authorDTO = service.getDtoById(id);
         if (author.getName() != null) {
             authorDTO.setName(author.getName());
         }

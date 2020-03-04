@@ -30,7 +30,7 @@ public class RoleController {
         return service.getDtoById(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public EnumEntityDTO addRole(@RequestParam("role") String name) throws ServiceLayerException {
         EnumEntityDTO role = new EnumEntityDTO(name.toLowerCase());
         this.service.add(role);

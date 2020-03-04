@@ -1,4 +1,5 @@
 com\epam\lab\beseda\dto\UserDTO.class
+com\epam\lab\beseda\service\search\NewsSearchCriteria.class
 com\epam\lab\beseda\exception\MapperException.class
 com\epam\lab\beseda\exception\validation\IrregularStringFormatException.class
 com\epam\lab\beseda\service\validator\RoleValidator.class
@@ -11,11 +12,10 @@ com\epam\lab\beseda\exception\validation\NullValueException.class
 com\epam\lab\beseda\service\serviceinterface\AuthorServiceInterface.class
 com\epam\lab\beseda\service\validator\Validatable.class
 com\epam\lab\beseda\service\validator\UserValidator.class
-com\epam\lab\beseda\search\NewsSearchByTagsCriteria.class
 com\epam\lab\beseda\service\modelmapper\UserMapper.class
 com\epam\lab\beseda\service\modelmapper\EnumEntityMapper.class
 com\epam\lab\beseda\service\validator\AuthorValidator.class
-com\epam\lab\beseda\search\NewsSearchCriteria.class
+com\epam\lab\beseda\service\search\NewsSearchByTagsCriteria.class
 com\epam\lab\beseda\service\serviceinterface\NewsServiceInterface.class
 com\epam\lab\beseda\service\serviceinterface\UserServiceInterface.class
 com\epam\lab\beseda\service\serviceclass\AbstractService.class
@@ -31,13 +31,13 @@ com\epam\lab\beseda\service\serviceclass\AuthorService.class
 com\epam\lab\beseda\service\serviceclass\EnumEntityService.class
 com\epam\lab\beseda\dto\NewsDTO.class
 com\epam\lab\beseda\util\ServiceConstants.class
+com\epam\lab\beseda\service\search\NewsSearchByAuthorCriteria.class
 com\epam\lab\beseda\service\validator\NewsValidator.class
 com\epam\lab\beseda\service\modelmapper\NewsMapper.class
 com\epam\lab\beseda\configuration\ServiceConfiguration.class
 com\epam\lab\beseda\service\modelmapper\Mapper.class
 com\epam\lab\beseda\service\serviceinterface\EnumEntityServiceInterface.class
 com\epam\lab\beseda\exception\validation\ValidationException.class
-com\epam\lab\beseda\search\NewsSearchByAuthorCriteria.class
 com\epam\lab\beseda\configuration\ModelMapperConfiguration.class
 com\epam\lab\beseda\dto\EnumEntityDTO.class
 com\epam\lab\beseda\service\serviceclass\UserService.class

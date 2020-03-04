@@ -118,6 +118,22 @@ public class UserServiceTest {
         Mockito.verify(userDao, times(1)).setRole(anyInt(), anyInt());
     }
 
+    @Test
+    public void testAdd_correctData_noSuchRole() throws DAOLayerException, ServiceLayerException {
+        Mockito.doNothing().when(validator).validate(any(UserDTO.class));
+        Mockito.when(mapper.toEntity(userDTOList.get(1))).thenReturn(user);
+        Mockito.when(roleDAO.getEntityByName(anyString())).thenReturn(null);
+        Mockito.when(roleDAO.add(any(EnumEntity.class))).thenReturn(14);
+        Mockito.when(userDao.add(any(User.class))).thenReturn(1);
+        Mockito.doNothing().when(userDao).setRole(anyInt(), anyInt());
+
+        service.add(userDTOList.get(1));
+        Mockito.verify(userDao, times(1)).add(user);
+        Mockito.verify(validator, times(1)).validate(userDTOList.get(1));
+        Mockito.verify(userDao, times(1)).setRole(anyInt(), anyInt());
+    }
+
+
     @Test(expected = EntityExistsException.class)
     public void testAdd_userExists() throws DAOLayerException, ServiceLayerException {
         Mockito.when(userDao.getUserByLogin(anyString())).thenReturn(new User());

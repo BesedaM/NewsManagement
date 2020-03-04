@@ -7,6 +7,7 @@ import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.dto.UserDTO;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.User;
+import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.exception.EntityExistsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
@@ -35,7 +36,6 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
     private EnumEntityMapper enumEntityMapper;
 
     @Autowired
-    @Qualifier("roleDao")
     private RoleDAO roleDAO;
 
     public UserService(UserDAO userDAO, RoleDAO roleDAO, UserValidator validator, UserMapper mapper, EnumEntityMapper enumEntityMapper) {
@@ -91,6 +91,14 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
         if (((UserDAO) dao).getUserByLogin(dto.getLogin()) == null) {
             super.add(dto);
             EnumEntity enumEntity = roleDAO.getEntityByName(dto.getRole());
+            if(enumEntity==null){
+                enumEntity=new EnumEntity(dto.getRole());
+                try {
+                    roleDAO.add(enumEntity);
+                } catch (DAOLayerException e) {
+                    throw new ServiceLayerException(e);
+                }
+            }
             ((UserDAO) dao).setRole(dto.getId(), enumEntity.getId());
         } else {
             throw new EntityExistsException(USER_WITH_LOGIN_EXISTS);
