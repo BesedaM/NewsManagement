@@ -1,7 +1,5 @@
 *.iml
 build/
 .idea/
-controller/target
-repository_jdbc/target
-service/target
-/controller/src/main/java/com/epam/lab/beseda/TestClass.java
+target/
+log/
