@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface NewsServiceInterface extends AbstractServiceInterface<NewsDTO>{
 
+    List<NewsDTO> getAllSorted(String param) throws ServiceLayerException;
+
     int getNewsNumber();
 
     void addNewsTags(int newsId, List<String> tags) throws ServiceLayerException;

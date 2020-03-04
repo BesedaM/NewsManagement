@@ -2,6 +2,7 @@ package com.epam.lab.beseda.dao.entitydao;
 
 import com.epam.lab.beseda.configuration.TestConfiguration;
 import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
+import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.News;
 import com.epam.lab.beseda.exception.DAOLayerException;
@@ -31,7 +32,7 @@ public class NewsDAOTest {
     @BeforeClass
     public static void initData() {
         entity = new News("NEW", "1111", "123456789");
-        LocalDate now = LocalDate.of(2000,10,10);
+        LocalDate now = LocalDate.of(2000, 10, 10);
         entity.setCreationDate(now);
         entity.setModificationDate(now);
     }
@@ -79,6 +80,14 @@ public class NewsDAOTest {
     public void testGetEntityById_noSuchEntity() throws DAOLayerException {
         News news = newsDao.getEntityById(1000);
         Assert.assertNull(news);
+    }
+
+
+    @Test
+    public void testGetNewsByAuthor() {
+        Author author = new Author("Alina", "Bodoeva");
+        List<News> newsList = newsDao.getNewsByAuthor(author);
+        Assert.assertEquals(4, newsList.size());
     }
 
     @Test
@@ -145,7 +154,7 @@ public class NewsDAOTest {
     @Test
     public void testGetNewsNumber() {
         int newsNumber = newsDao.getNewsNumber();
-        Assert.assertEquals(13,newsNumber);
+        Assert.assertEquals(13, newsNumber);
     }
 
 }

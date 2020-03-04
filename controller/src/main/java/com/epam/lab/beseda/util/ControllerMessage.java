@@ -7,6 +7,10 @@ public class ControllerMessage {
     public static final String ROLE_WITH_ID;
     public static final String USER_WITH_ID;
     public static final String NEWS_WITH_ID;
+    public static final String NEWS_DATA_REQUIRED;
+    public static final String FULL_AUTHOR_DATA_REQUIRED;
+    public static final String TAGS_LIST_REQUIRED;
+    public static final String FULL_USER_DATA_REQUIRED;
 
     static {
         IS_DELETED = " is deleted";
@@ -15,5 +19,11 @@ public class ControllerMessage {
         ROLE_WITH_ID = "The role entity with id=";
         USER_WITH_ID = "The user with id=";
         NEWS_WITH_ID = "The news with id=";
+        NEWS_DATA_REQUIRED = "You have to specify all the required fields, " +
+                "such as 'author', 'title', 'shortText', 'fullText'. The field 'tags' is not necessary";
+        FULL_AUTHOR_DATA_REQUIRED = "You have to specify the author data, such as: 'name', 'surname'";
+        TAGS_LIST_REQUIRED = "Tags list must contain of at least one tag";
+        FULL_USER_DATA_REQUIRED = "You have to specify all the fields, " +
+                "such as 'name', 'surname', 'login', 'password', 'role'";
     }
 }

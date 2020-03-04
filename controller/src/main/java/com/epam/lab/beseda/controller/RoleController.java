@@ -32,7 +32,7 @@ public class RoleController {
 
     @PostMapping("/add")
     public EnumEntityDTO addRole(@RequestParam("role") String name) throws ServiceLayerException {
-        EnumEntityDTO role = new EnumEntityDTO(name);
+        EnumEntityDTO role = new EnumEntityDTO(name.toLowerCase());
         this.service.add(role);
         return role;
     }
@@ -41,7 +41,7 @@ public class RoleController {
     public EnumEntityDTO updateRole(@RequestParam int id, @RequestParam String name) throws ServiceLayerException {
         EnumEntityDTO tag = service.getDtoById(id);
         if (name != null) {
-            tag.setName(name);
+            tag.setName(name.toLowerCase());
             service.update(tag);
         }
         return tag;

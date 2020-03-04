@@ -152,6 +152,7 @@
               <include>**/com.epam.lab.beseda.service.ModelMapperTestSuite.java</include>
               <include>**/com.epam.lab.beseda.service.ServiceTestSuite.java</include>
               <include>**/com.epam.lab.beseda.service.ValidatorTestSuite.java</include>
+              <include>**/com.epam.lab.beseda.service.SearchCriteriaTestSuite.java</include>
             </includes>
           </configuration>
         </plugin>

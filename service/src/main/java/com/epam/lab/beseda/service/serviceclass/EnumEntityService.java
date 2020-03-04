@@ -30,7 +30,7 @@ public abstract class EnumEntityService extends AbstractService<EnumEntity, Enum
 
     @Override
     public EnumEntityDTO getEntityByName(String name) {
-        EnumEntity enumEntity = ((EnumEntityDAO) dao).getEntityByName(name);
+        EnumEntity enumEntity = ((EnumEntityDAO) dao).getEntityByName(name.toLowerCase());
         return mapper.toDto(enumEntity);
     }
 

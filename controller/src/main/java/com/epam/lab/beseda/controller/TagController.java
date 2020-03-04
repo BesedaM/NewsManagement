@@ -32,7 +32,7 @@ public class TagController {
 
     @PostMapping("/add")
     public EnumEntityDTO addTag(@RequestParam("tag") String name) throws ServiceLayerException {
-        EnumEntityDTO tag = new EnumEntityDTO(name);
+        EnumEntityDTO tag = new EnumEntityDTO(name.toLowerCase());
         this.service.add(tag);
         return tag;
     }
@@ -41,7 +41,7 @@ public class TagController {
     public EnumEntityDTO updateTag(@RequestParam int id, @RequestParam String name) throws ServiceLayerException {
         EnumEntityDTO tag = service.getDtoById(id);
         if (name != null) {
-            tag.setName(name);
+            tag.setName(name.toLowerCase());
             service.update(tag);
         }
         return tag;

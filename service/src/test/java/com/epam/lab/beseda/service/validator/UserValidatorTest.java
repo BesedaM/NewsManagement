@@ -51,6 +51,12 @@ public class UserValidatorTest {
         validator.validate(user);
     }
 
+    @Test(expected = ValidationException.class)
+    public void testValidate_nullRole() throws ValidationException {
+        UserDTO user = new UserDTO("Ken","Lock","clock","null",null);
+        validator.validate(user);
+    }
+
     //Name format test
 
     @Test(expected = IrregularStringFormatException.class)
@@ -113,7 +119,24 @@ public class UserValidatorTest {
 
     @Test(expected = IrregularStringFormatException.class)
     public void testValidatePasswordFieldFormat_space_incorrect() throws ValidationException {
-        validator.validate(new UserDTO("Andrei","Lock","clock","1234 567","guest"));
+        validator.validate(new UserDTO("Andrei","Lock","clock","1234567","gue st"));
+    }
+
+    //Role format test
+
+    @Test(expected = IrregularStringFormatException.class)
+    public void testValidateRoleFieldFormat_numbers_incorrect() throws ValidationException {
+        validator.validate(new UserDTO("Andrei","Lock","clock","1234567","guest0"));
+    }
+
+    @Test(expected = IrregularStringFormatException.class)
+    public void testValidateRoleFieldFormat_symbol01_incorrect() throws ValidationException {
+        validator.validate(new UserDTO("Andrei","Lock","clock","1234567","g*uest"));
+    }
+
+    @Test(expected = IrregularStringFormatException.class)
+    public void testValidateRoleFieldFormat_symbol02_incorrect() throws ValidationException {
+        validator.validate(new UserDTO("Andrei","Lock","clock","1234567","gues)t"));
     }
 
 

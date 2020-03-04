@@ -1,6 +1,7 @@
 package com.epam.lab.beseda.controller;
 
 import com.epam.lab.beseda.dto.AuthorDTO;
+import com.epam.lab.beseda.exception.NotEnoughArgumentsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.serviceclass.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.epam.lab.beseda.util.ControllerMessage.AUTHOR_WITH_ID;
-import static com.epam.lab.beseda.util.ControllerMessage.IS_DELETED;
+import static com.epam.lab.beseda.util.ControllerMessage.*;
 
 @RestController
 @RequestMapping("/authors/")
@@ -30,8 +30,12 @@ public class AuthorController {
     }
 
     @PostMapping("/")
-    public AuthorDTO addAuthor(@RequestBody AuthorDTO author) throws ServiceLayerException {
-        this.service.add(author);
+    public AuthorDTO addAuthor(@RequestBody AuthorDTO author) throws ServiceLayerException, NotEnoughArgumentsException {
+        if (author.getName() != null && author.getSurname() != null) {
+            this.service.add(author);
+        } else {
+            throw new NotEnoughArgumentsException(FULL_AUTHOR_DATA_REQUIRED);
+        }
         return author;
     }
 
@@ -41,7 +45,7 @@ public class AuthorController {
         if (author.getName() != null) {
             authorDTO.setName(author.getName());
         }
-        if (author.getSurname()!= null) {
+        if (author.getSurname() != null) {
             authorDTO.setSurname(author.getSurname());
         }
         service.update(authorDTO);

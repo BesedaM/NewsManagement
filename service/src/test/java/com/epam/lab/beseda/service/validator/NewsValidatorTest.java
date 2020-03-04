@@ -15,6 +15,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @RunWith(SpringRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {ServiceValidatorConfig.class})
 public class NewsValidatorTest {
@@ -114,6 +117,30 @@ public class NewsValidatorTest {
     public void testValidateFullTextFieldLength_large_correct() throws ValidationException {
         String text = RandomString.make(5000);
         NewsDTO news = new NewsDTO(authorDTO, "Title", "short text", text);
+        validator.validate(news);
+    }
+
+    //Validate tags
+    @Test(expected = ValidationException.class)
+    public void testValidateTags_tooSmall() throws ValidationException {
+        String text = RandomString.make(100);
+        Set<String> tags = new HashSet<>();
+        tags.add("1233");
+        tags.add("tt");
+        NewsDTO news = new NewsDTO(authorDTO, "Title", "short text", text);
+        news.setTags(tags);
+        validator.validate(news);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void testValidateTags_tooBig() throws ValidationException {
+        String text = RandomString.make(100);
+        String bigTag = RandomString.make(21);
+        Set<String> tags = new HashSet<>();
+        tags.add("1233");
+        tags.add(bigTag);
+        NewsDTO news = new NewsDTO(authorDTO, "Title", "short text", text);
+        news.setTags(tags);
         validator.validate(news);
     }
 

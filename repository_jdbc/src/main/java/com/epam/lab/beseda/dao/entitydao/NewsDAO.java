@@ -1,8 +1,11 @@
 package com.epam.lab.beseda.dao.entitydao;
 
 import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
+import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.News;
+import com.epam.lab.beseda.exception.ParameterNotExistsException;
+import com.epam.lab.beseda.util.DBConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,12 +17,13 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.util.List;
 
+import static com.epam.lab.beseda.util.DBConstants.*;
 import static com.epam.lab.beseda.util.DBEntityTable.*;
 import static com.epam.lab.beseda.util.Query.*;
 
+
 @Repository
 public class NewsDAO extends AbstractDAO<News> implements NewsDAOInterface {
-
     public NewsDAO(JdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
     }
@@ -52,6 +56,33 @@ public class NewsDAO extends AbstractDAO<News> implements NewsDAOInterface {
         sqlParameterSource.addValue(CREATION_DATE, Date.valueOf(entity.getCreationDate()));
         sqlParameterSource.addValue(MODIFICATION_DATE, Date.valueOf(entity.getModificationDate()));
         return sqlParameterSource;
+    }
+
+    @Override
+    public List<News> getAllSorted(String param) throws ParameterNotExistsException {
+        String query = null;
+        switch (param) {
+            case AUTHOR: {
+                query = NEWS_ORDER_BY_AUTHOR;
+                break;
+            }
+            case DATE: {
+                query = NEWS_ORDER_BY_CREATION_DATE;
+                break;
+            }
+            case DBConstants.TAG: {
+                query = NEWS_ORDER_BY_TAG;
+                break;
+            }
+            default:
+                throw new ParameterNotExistsException(SORTING_PARAMETER_REQUIREMENTS);
+        }
+        return jdbcTemplate.query(query, rowMapper);
+    }
+
+    @Override
+    public List<News> getNewsByAuthor(Author author) {
+        return jdbcTemplate.query(SEARCH_NEWS_BY_AUTHOR, new Object[]{author.getName(), author.getSurname()}, rowMapper);
     }
 
     @Override
@@ -96,7 +127,7 @@ public class NewsDAO extends AbstractDAO<News> implements NewsDAOInterface {
 
     @Override
     protected String getAllStatement() {
-        return SELECT_ALL_NEWS;
+        return SELECT_ALL_NEWS_WITH_AUTHORS_TAGS;
     }
 
     @Override

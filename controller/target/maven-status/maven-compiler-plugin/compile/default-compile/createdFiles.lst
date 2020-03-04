@@ -9,3 +9,4 @@ com\epam\lab\beseda\controller\RoleController.class
 com\epam\lab\beseda\util\ControllerMessage.class
 com\epam\lab\beseda\configuration\WebAppInitializer.class
 com\epam\lab\beseda\controller\HelloController.class
+com\epam\lab\beseda\exception\NotEnoughArgumentsException.class

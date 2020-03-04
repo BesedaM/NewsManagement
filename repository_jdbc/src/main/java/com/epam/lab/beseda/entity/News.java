@@ -10,7 +10,11 @@ public class News extends BaseEntity {
     private LocalDate creationDate;
     private LocalDate modificationDate;
     private Author author;
-    private List<EnumEntity> tagList;
+    private Set<String> tags;
+
+    {
+        tags = new HashSet<>();
+    }
 
     public News() {
     }
@@ -64,8 +68,8 @@ public class News extends BaseEntity {
         this.modificationDate = modificationDate;
     }
 
-    public void setTagList(List<EnumEntity> tagList) {
-        this.tagList = tagList;
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 
     public Author getAuthor() {
@@ -92,8 +96,8 @@ public class News extends BaseEntity {
         return modificationDate;
     }
 
-    public List<EnumEntity> getTagList() {
-        return tagList;
+    public Set<String> getTags() {
+        return tags;
     }
 
     @Override

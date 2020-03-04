@@ -11,6 +11,7 @@ import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.News;
 import com.epam.lab.beseda.exception.DAOLayerException;
+import com.epam.lab.beseda.exception.ParameterNotExistsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.modelmapper.AuthorMapper;
 import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
@@ -61,6 +62,7 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
         this.tagDAO = tagDAO;
         this.authorMapper = authorMapper;
         this.enumEntityMapper = enumEntityMapper;
+        this.tagValidator = tagValidator;
     }
 
     @Autowired
@@ -81,6 +83,22 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
     @Qualifier("newsMapper")
     protected void setMapper(Mapper<News, NewsDTO> mapper) {
         this.mapper = mapper;
+    }
+
+    @Override
+    public List<NewsDTO> getAllSorted(String param) throws ServiceLayerException {
+        List<News> newsList = null;
+        try {
+            newsList = ((NewsDAO) dao).getAllSorted(param);
+        } catch (ParameterNotExistsException e) {
+            throw new ServiceLayerException(e);
+        }
+        List<NewsDTO> newsDTOList = new ArrayList<>();
+        for (News news :
+                newsList) {
+            newsDTOList.add(mapper.toDto(news));
+        }
+        return newsDTOList;
     }
 
     @Override

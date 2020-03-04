@@ -20,11 +20,6 @@ public class NewsValidator implements Validatable<NewsDTO> {
     @Qualifier("authorValidator")
     private AuthorValidator authorValidator;
 
-    @Autowired
-    @Qualifier("tagValidator")
-    private TagValidator tagValidator;
-
-
     @Override
     public void validate(NewsDTO entity) throws ValidationException {
         this.validateNullValues(entity);

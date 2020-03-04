@@ -38,6 +38,12 @@ public class Query {
     public static final String SELECT_NEWS_BY_ID_LIST;
     public static final String SELECT_NEWS_BY_ID;
 
+    public static final String SEARCH_NEWS_BY_AUTHOR;
+
+    public static final String NEWS_ORDER_BY_AUTHOR;
+    public static final String NEWS_ORDER_BY_TAG;
+    public static final String NEWS_ORDER_BY_CREATION_DATE;
+
     public static final String DELETE_NEWS_BY_ID;
     public static final String ADD_NEWS;
     public static final String UPDATE_NEWS;
@@ -93,14 +99,53 @@ public class Query {
 
         // News DAO
         SELECT_ALL_NEWS = "SELECT * FROM news_management.news";
-        SELECT_ALL_NEWS_WITH_AUTHORS_TAGS = "Select news.id, news.title, news.short_text, news.full_text, author.name , author.surname,\n" +
+        SELECT_ALL_NEWS_WITH_AUTHORS_TAGS = "Select news.id, news.title, news.short_text, news.full_text, author.id as author_id, author.name , author.surname,\n" +
                 "news.creation_date, news.modification_date, \n" +
-                "STRING_AGG(tag.name, ' ' ORDER BY tag.name) from news_management.news \n" +
+                "STRING_AGG(tag.name, ' ' ORDER BY tag.name) as tags_list from news_management.news \n" +
                 "left join news_management.news_tag ON news.id=news_tag.news_id\n" +
                 "left join news_management.tag ON news_tag.tag_id=tag.id\n" +
                 "left join news_management.news_author ON news.id=news_author.news_id\n" +
                 "left join news_management.author ON news_author.author_id=author.id\n" +
-                "GROUP BY news.id, author.name, author.surname;";
+                "GROUP BY news.id, author.id;";
+
+        NEWS_ORDER_BY_AUTHOR = "Select news.id, news.title, news.short_text, news.full_text, author.id as author_id, author.name , author.surname,\n" +
+                "news.creation_date, news.modification_date, \n" +
+                "STRING_AGG(tag.name, ' ' ORDER BY tag.name) as tags_list from news_management.news \n" +
+                "left join news_management.news_tag ON news.id=news_tag.news_id\n" +
+                "left join news_management.tag ON news_tag.tag_id=tag.id\n" +
+                "left join news_management.news_author ON news.id=news_author.news_id\n" +
+                "left join news_management.author ON news_author.author_id=author.id\n" +
+                "GROUP BY news.id, author.id\n" +
+                "ORDER BY author.surname, author.name;";
+        NEWS_ORDER_BY_TAG = "Select news.id, news.title, news.short_text, news.full_text, author.id as author_id, author.name , author.surname,\n" +
+                "news.creation_date, news.modification_date, \n" +
+                "STRING_AGG(tag.name, ' ' ORDER BY tag.name) as tags_list from news_management.news \n" +
+                "left join news_management.news_tag ON news.id=news_tag.news_id\n" +
+                "left join news_management.tag ON news_tag.tag_id=tag.id\n" +
+                "left join news_management.news_author ON news.id=news_author.news_id\n" +
+                "left join news_management.author ON news_author.author_id=author.id\n" +
+                "GROUP BY news.id, author.id\n" +
+                "ORDER BY tags_list, news.id;";
+        NEWS_ORDER_BY_CREATION_DATE = "Select news.id, news.title, news.short_text, news.full_text, author.id as author_id, author.name , author.surname,\n" +
+                "news.creation_date, news.modification_date, \n" +
+                "STRING_AGG(tag.name, ' ' ORDER BY tag.name) as tags_list from news_management.news \n" +
+                "left join news_management.news_tag ON news.id=news_tag.news_id\n" +
+                "left join news_management.tag ON news_tag.tag_id=tag.id\n" +
+                "left join news_management.news_author ON news.id=news_author.news_id\n" +
+                "left join news_management.author ON news_author.author_id=author.id\n" +
+                "GROUP BY news.id, author.id\n" +
+                "ORDER BY news.creation_date, news.id;";
+
+        SEARCH_NEWS_BY_AUTHOR = "Select news.id, news.title, news.short_text, news.full_text, author.id as author_id, author.name , author.surname,\n" +
+                "news.creation_date, news.modification_date, \n" +
+                "STRING_AGG(tag.name, ' ' ORDER BY tag.name) as tags_list from news_management.news \n" +
+                "left join news_management.news_tag ON news.id=news_tag.news_id\n" +
+                "left join news_management.tag ON news_tag.tag_id=tag.id\n" +
+                "left join news_management.news_author ON news.id=news_author.news_id\n" +
+                "left join news_management.author ON news_author.author_id=author.id\n" +
+                "WHERE author.name=? AND author.surname=?\n" +
+                "GROUP BY news.id, author.id";
+
 
         SELECT_NEWS_BY_ID = "SELECT * FROM news_management.news WHERE id=?";
         SELECT_NEWS_BY_ID_LIST = "SELECT * FROM news_management.news WHERE id IN (?)";

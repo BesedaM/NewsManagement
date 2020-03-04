@@ -2,6 +2,7 @@ package com.epam.lab.beseda.service.serviceclass;
 
 import com.epam.lab.beseda.dao.entitydao.AuthorDAO;
 import com.epam.lab.beseda.dao.entitydao.NewsDAO;
+import com.epam.lab.beseda.dao.entitydao.TagDAO;
 import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
@@ -9,6 +10,7 @@ import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.News;
 import com.epam.lab.beseda.exception.DAOLayerException;
+import com.epam.lab.beseda.exception.ParameterNotExistsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.exception.validation.ValidationException;
 import com.epam.lab.beseda.service.modelmapper.AuthorMapper;
@@ -26,7 +28,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -46,6 +50,9 @@ public class NewsServiceTest {
 
     @Mock
     private NewsMapper mapper;
+
+    @Mock
+    private TagDAO tagDAO;
 
     @Mock
     private TagValidator tagValidator;
@@ -130,8 +137,53 @@ public class NewsServiceTest {
         Mockito.when(authorMapper.toEntity(any(AuthorDTO.class))).thenReturn(new Author());
 
         service.add(newsDTO);
+
         Mockito.verify(newsDao, times(1)).add(news);
         Mockito.verify(validator, times(1)).validate(any(NewsDTO.class));
+    }
+
+    @Test
+    public void testAdd_noSuchTag() throws DAOLayerException, ServiceLayerException {
+        NewsDTO newsDTO = new NewsDTO(authorDTO, "title", "short_title", "full_text");
+        newsDTO.setAuthor(authorDTO);
+        Set<String> tags = new HashSet<>();
+        tags.add("one");
+        tags.add("two");
+        newsDTO.setTags(tags);
+
+
+        Mockito.doNothing().when(validator).validate(isA(NewsDTO.class));
+        Mockito.when(newsDao.add(isA(News.class))).thenReturn(1);
+        Mockito.doNothing().when(newsDao).addAuthor(anyInt(), anyInt());
+        Mockito.when(mapper.toEntity(any(NewsDTO.class))).thenReturn(news);
+        Mockito.when(authorMapper.toEntity(any(AuthorDTO.class))).thenReturn(new Author());
+        Mockito.when(tagDAO.getEntityByName(anyString())).thenReturn(null);
+        Mockito.when(tagDAO.add(any(EnumEntity.class))).thenReturn(5);
+        Mockito.doNothing().when(newsDao).addNewsTag(anyInt(), anyInt());
+
+        service.add(newsDTO);
+        Mockito.verify(newsDao, times(1)).add(news);
+        Mockito.verify(validator, times(1)).validate(any(NewsDTO.class));
+    }
+
+
+    @Test
+    public void testGetAllSorted_rightParameter() throws ServiceLayerException, ParameterNotExistsException {
+        Mockito.when(newsDao.getAllSorted(anyString())).thenReturn(newsList);
+        Mockito.when(mapper.toDto(any(News.class))).thenReturn(new NewsDTO());
+
+        List<NewsDTO> newsDTOList = service.getAllSorted("author");
+
+        Mockito.verify(mapper, times(3)).toDto(any(News.class));
+    }
+
+    @Test(expected = ServiceLayerException.class)
+    public void testGetAllSorted_unknownParameter() throws ServiceLayerException, ParameterNotExistsException {
+        Mockito.when(newsDao.getAllSorted(anyString())).thenThrow(ParameterNotExistsException.class);
+
+        List<NewsDTO> newsDTOList = service.getAllSorted("unknown_param");
+
+        Mockito.verify(mapper, never()).toDto(any(News.class));
     }
 
     @Test(expected = ServiceLayerException.class)
@@ -170,19 +222,37 @@ public class NewsServiceTest {
         Assert.assertEquals(newsNum, service.getNewsNumber());
     }
 
-//    @Test
-//    public void testAddNewsTag() {
-//        Mockito.doNothing().when(newsDao).addNewsTag(anyInt(), anyInt());
-//        service.addNewsTag(1, 2);
-//        Mockito.verify(newsDao).addNewsTag(anyInt(), anyInt());
-//    }
+    @Test
 
-//    @Test
-//    public void testDeleteNewsTag() {
-//        Mockito.doNothing().when(newsDao).deleteNewsTag(anyInt(), anyInt());
-//        service.deleteNewsTag(1, 2);
-//        Mockito.verify(newsDao).deleteNewsTag(anyInt(), anyInt());
-//    }
+    public void testAddNewsTag() throws ServiceLayerException, DAOLayerException {
+        List<String> tags = new ArrayList<>();
+        tags.add("one");
+        tags.add("two");
+        Mockito.when(tagDAO.getEntityByName(anyString())).thenReturn(null);
+        Mockito.when(tagMapper.toDto(any(EnumEntity.class))).thenReturn(new EnumEntityDTO("12345"));
+        Mockito.doNothing().when(tagValidator).validate(any(EnumEntityDTO.class));
+        Mockito.when(tagDAO.add(any(EnumEntity.class))).thenReturn(2);
+        Mockito.doNothing().when(newsDao).addNewsTag(anyInt(), anyInt());
+
+        service.addNewsTags(1, tags);
+
+        Mockito.verify(newsDao, times(2)).addNewsTag(anyInt(), anyInt());
+    }
+
+
+    @Test
+    public void testDeleteNewsTag() {
+        List<String> tags = new ArrayList<>();
+        tags.add("one");
+        tags.add("two");
+
+        Mockito.when(tagDAO.getEntityByName(anyString())).thenReturn(new EnumEntity());
+        Mockito.doNothing().when(newsDao).deleteNewsTag(anyInt(), anyInt());
+
+        service.deleteNewsTags(1, tags);
+
+        Mockito.verify(newsDao, times(2)).deleteNewsTag(anyInt(), anyInt());
+    }
 
     @Test
     public void getNewsTagsNames() {
@@ -229,17 +299,23 @@ public class NewsServiceTest {
         int newsId = 1;
         int authorId = 2;
         AuthorDTO authorDTO = new AuthorDTO();
+        List<Integer> newsIdList = new ArrayList<>();
+        newsIdList.add(1);
+        newsIdList.add(2);
 
-        when(newsDao.getAuthorId(newsId)).thenReturn(authorId);
-        when(authorDAO.getEntityById(authorId)).thenReturn(new Author());
+        Mockito.when(newsDao.getAuthorId(newsId)).thenReturn(authorId);
+        Mockito.when(authorDAO.getEntityById(authorId)).thenReturn(new Author());
         Mockito.when(authorMapper.toDto(any(Author.class))).thenReturn(authorDTO);
+        Mockito.when(authorDAO.getNewsId(anyInt())).thenReturn(newsIdList);
+        Mockito.when(newsDao.getEntityById(anyInt())).thenReturn(new News());
+        Mockito.when(mapper.toDto(any(News.class))).thenReturn(new NewsDTO());
 
         AuthorDTO receivedAuthor = service.getAuthor(newsId);
 
         verify(newsDao, atMostOnce()).getAuthorId(anyInt());
         verify(authorDAO, atMostOnce()).getEntityById(anyInt());
+        verify(newsDao, times(2)).getEntityById(anyInt());
 
-        Assert.assertEquals(authorDTO, receivedAuthor);
     }
 
     @Test

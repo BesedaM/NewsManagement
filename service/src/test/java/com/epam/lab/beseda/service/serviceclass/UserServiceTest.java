@@ -7,6 +7,7 @@ import com.epam.lab.beseda.dto.UserDTO;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.User;
 import com.epam.lab.beseda.exception.DAOLayerException;
+import com.epam.lab.beseda.exception.EntityExistsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.exception.validation.ValidationException;
 import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
@@ -116,6 +117,14 @@ public class UserServiceTest {
         Mockito.verify(validator, times(1)).validate(userDTOList.get(1));
         Mockito.verify(userDao, times(1)).setRole(anyInt(), anyInt());
     }
+
+    @Test(expected = EntityExistsException.class)
+    public void testAdd_userExists() throws DAOLayerException, ServiceLayerException {
+        Mockito.when(userDao.getUserByLogin(anyString())).thenReturn(new User());
+
+        service.add(new UserDTO("Andrei", "Drobak", "chiz", "1234rth", "guest"));
+    }
+
 
     @Test(expected = ServiceLayerException.class)
     public void testAdd_incorrectData() throws ServiceLayerException, DAOLayerException {

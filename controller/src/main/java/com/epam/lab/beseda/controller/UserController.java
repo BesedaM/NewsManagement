@@ -1,6 +1,7 @@
 package com.epam.lab.beseda.controller;
 
 import com.epam.lab.beseda.dto.UserDTO;
+import com.epam.lab.beseda.exception.NotEnoughArgumentsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.serviceclass.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.epam.lab.beseda.util.ControllerMessage.IS_DELETED;
-import static com.epam.lab.beseda.util.ControllerMessage.USER_WITH_ID;
+import static com.epam.lab.beseda.util.ControllerMessage.*;
 
 @RestController
 @RequestMapping("/users/")
@@ -29,7 +29,14 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public UserDTO addUser(@RequestBody UserDTO userDTO) throws ServiceLayerException {
+    public UserDTO addUser(@RequestBody UserDTO userDTO) throws ServiceLayerException, NotEnoughArgumentsException {
+        if (userDTO.getName() == null
+                || userDTO.getSurname() == null
+                || userDTO.getLogin() == null
+                || userDTO.getPassword() == null
+                || userDTO.getRole() == null) {
+            throw new NotEnoughArgumentsException(FULL_USER_DATA_REQUIRED);
+        }
         this.service.add(userDTO);
         return userDTO;
     }
