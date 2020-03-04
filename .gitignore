@@ -1,5 +1,5 @@
+.gitignore
 *.iml
-build/
 .idea/
 target/
-log/
+
