@@ -1,6 +1,0 @@
-com\epam\lab\beseda\dao\DAOTestSuite.class
-com\epam\lab\beseda\dao\entitydao\NewsDAOTest.class
-com\epam\lab\beseda\dao\entitydao\TagDAOTest.class
-com\epam\lab\beseda\dao\entitydao\UserDAOTest.class
-com\epam\lab\beseda\dao\entitydao\AuthorDAOTest.class
-com\epam\lab\beseda\dao\entitydao\RoleDAOTest.class
