@@ -12,6 +12,7 @@
       <module>controller</module>
       <module>repository_jdbc</module>
       <module>service</module>
+
     </modules>
 
     <packaging>pom</packaging>
@@ -146,7 +147,7 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.0.0-M3</version>
           <configuration>
-            <skipTests>true</skipTests>
+            <skipTests>false</skipTests>
             <includes>
               <include>**/com.epam.lab.beseda.dao.DAOTestSuite.java</include>
               <include>**/com.epam.lab.beseda.service.ModelMapperTestSuite.java</include>

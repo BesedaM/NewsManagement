@@ -1,8 +1,9 @@
 package com.epam.lab.beseda.service.serviceclass;
 
-import com.epam.lab.beseda.dao.entitydao.AbstractDAO;
 import com.epam.lab.beseda.dao.entitydao.AuthorDAO;
-import com.epam.lab.beseda.dao.entitydao.NewsDAO;
+import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
+import com.epam.lab.beseda.dao.daointeface.AuthorDAOInterface;
+import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
 import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
 import com.epam.lab.beseda.entity.Author;
@@ -24,26 +25,29 @@ import java.util.List;
 @Service
 public class AuthorService extends AbstractService<Author, AuthorDTO> implements AuthorServiceInterface {
 
-    public AuthorService() {
-        super();
-    }
-
-    public AuthorService(AuthorDAO authorDAO, NewsDAO newsDao, AuthorValidator validator, AuthorMapper mapper, NewsMapper newsMapper) {
-        super(authorDAO, validator, mapper);
-        this.newsDao = newsDao;
-        this.newsMapper = newsMapper;
-    }
-
     @Autowired
-    private NewsDAO newsDao;
+    private NewsDAOInterface newsDao;
 
     @Autowired
     @Qualifier("newsMapper")
     private NewsMapper newsMapper;
 
+
+    public AuthorService() {
+        super();
+    }
+
+    public AuthorService(AuthorDAOInterface authorDAO, NewsDAOInterface newsDao, AuthorValidator validator, AuthorMapper mapper, NewsMapper newsMapper) {
+        super(authorDAO, validator, mapper);
+        this.newsDao = newsDao;
+        this.newsMapper = newsMapper;
+    }
+
+
+
     @Autowired
     @Override
-    protected void setDao(AbstractDAO<Author> dao) {
+    protected void setDao(AbstractDAOInterface<Author> dao) {
         this.dao = dao;
     }
 

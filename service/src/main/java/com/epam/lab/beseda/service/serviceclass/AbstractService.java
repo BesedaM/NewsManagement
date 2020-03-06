@@ -1,6 +1,6 @@
 package com.epam.lab.beseda.service.serviceclass;
 
-import com.epam.lab.beseda.dao.entitydao.AbstractDAO;
+import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
 import com.epam.lab.beseda.dto.BaseDTO;
 import com.epam.lab.beseda.entity.BaseEntity;
 import com.epam.lab.beseda.exception.DAOLayerException;
@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public abstract class AbstractService<K extends BaseEntity, D extends BaseDTO> implements AbstractServiceInterface<D> {
 
-    protected AbstractDAO<K> dao;
+    protected AbstractDAOInterface<K> dao;
 
     protected Validatable<D> validator;
 
@@ -26,13 +26,13 @@ public abstract class AbstractService<K extends BaseEntity, D extends BaseDTO> i
     protected AbstractService() {
     }
 
-    protected AbstractService(AbstractDAO<K> dao, Validatable<D> validator, Mapper<K, D> mapper) {
+    protected AbstractService(AbstractDAOInterface<K> dao, Validatable<D> validator, Mapper<K, D> mapper) {
         this.mapper = mapper;
         this.dao = dao;
         this.validator = validator;
     }
 
-    protected abstract void setDao(AbstractDAO<K> dao);
+    protected abstract void setDao(AbstractDAOInterface<K> dao);
 
     protected abstract void setValidator(Validatable<D> validator);
 

@@ -1,7 +1,7 @@
 package com.epam.lab.beseda.service.serviceclass;
 
-import com.epam.lab.beseda.dao.entitydao.AbstractDAO;
-import com.epam.lab.beseda.dao.entitydao.TagDAO;
+import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
+import com.epam.lab.beseda.dao.daointeface.EnumEntityDAOInterface;
 import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
@@ -17,14 +17,14 @@ public class TagService extends EnumEntityService {
     public TagService() {
     }
 
-    public TagService(TagDAO dao, TagValidator validator, EnumEntityMapper mapper) {
+    public TagService(EnumEntityDAOInterface dao, TagValidator validator, EnumEntityMapper mapper) {
         super(dao, validator,mapper);
     }
 
     @Autowired
     @Qualifier("tagDao")
     @Override
-    protected void setDao(AbstractDAO<EnumEntity> dao) {
+    protected void setDao(AbstractDAOInterface<EnumEntity> dao) {
         this.dao = dao;
     }
 

@@ -1,9 +1,10 @@
 package com.epam.lab.beseda.service.serviceclass;
 
-import com.epam.lab.beseda.dao.entitydao.AbstractDAO;
-import com.epam.lab.beseda.dao.entitydao.AuthorDAO;
 import com.epam.lab.beseda.dao.entitydao.NewsDAO;
-import com.epam.lab.beseda.dao.entitydao.TagDAO;
+import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
+import com.epam.lab.beseda.dao.daointeface.AuthorDAOInterface;
+import com.epam.lab.beseda.dao.daointeface.EnumEntityDAOInterface;
+import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
 import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
@@ -34,11 +35,11 @@ import java.util.Set;
 public class NewsService extends AbstractService<News, NewsDTO> implements NewsServiceInterface {
 
     @Autowired
-    private AuthorDAO authorDAO;
+    private AuthorDAOInterface authorDAO;
 
     @Autowired
     @Qualifier("tagDao")
-    private TagDAO tagDAO;
+    private EnumEntityDAOInterface tagDAO;
 
     @Autowired
     @Qualifier("enumEntityMapper")
@@ -55,7 +56,8 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
     public NewsService() {
     }
 
-    public NewsService(AuthorDAO authorDAO, NewsDAO newsDAO, TagDAO tagDAO, NewsValidator validator, TagValidator tagValidator, NewsMapper mapper,
+    public NewsService(AuthorDAOInterface authorDAO, NewsDAOInterface newsDAO, EnumEntityDAOInterface tagDAO,
+                       NewsValidator validator, TagValidator tagValidator, NewsMapper mapper,
                        AuthorMapper authorMapper, EnumEntityMapper enumEntityMapper) {
         super(newsDAO, validator, mapper);
         this.authorDAO = authorDAO;
@@ -67,7 +69,7 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
 
     @Autowired
     @Override
-    protected void setDao(AbstractDAO<News> dao) {
+    protected void setDao(AbstractDAOInterface<News> dao) {
         this.dao = dao;
     }
 

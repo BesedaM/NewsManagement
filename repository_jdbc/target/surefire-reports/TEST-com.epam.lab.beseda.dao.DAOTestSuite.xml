@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.epam.lab.beseda.dao.DAOTestSuite" time="28.337" tests="50" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1251"/>
+    <property name="java.class.path" value="C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\repository_jdbc\target\test-classes;C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\repository_jdbc\target\classes;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-jdbc\5.2.3.RELEASE\spring-jdbc-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-beans\5.2.3.RELEASE\spring-beans-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-tx\5.2.3.RELEASE\spring-tx-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\zaxxer\HikariCP\3.4.2\HikariCP-3.4.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\postgresql\postgresql\42.2.10\postgresql-42.2.10.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\opentable\components\otj-pg-embedded\0.13.3\otj-pg-embedded-0.13.3.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\apache\commons\commons-lang3\3.9\commons-lang3-3.9.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\apache\commons\commons-compress\1.19\commons-compress-1.19.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\tukaani\xz\1.5\xz-1.5.jar;C:\Users\Maryia_Biaseda\.m2\repository\commons-io\commons-io\2.6\commons-io-2.6.jar;C:\Users\Maryia_Biaseda\.m2\repository\commons-codec\commons-codec\1.13\commons-codec-1.13.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\github\spotbugs\spotbugs-annotations\3.1.12\spotbugs-annotations-3.1.12.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.28\jcl-over-slf4j-1.7.28.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\mybatis\mybatis\3.5.4\mybatis-3.5.4.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-web\5.2.3.RELEASE\spring-web-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\javax\servlet\javax.servlet-api\4.0.1\javax.servlet-api-4.0.1.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-core\5.2.3.RELEASE\spring-core-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-jcl\5.2.3.RELEASE\spring-jcl-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-context\5.2.3.RELEASE\spring-context-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-aop\5.2.3.RELEASE\spring-aop-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-expression\5.2.3.RELEASE\spring-expression-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-test\5.2.3.RELEASE\spring-test-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-context-support\5.2.3.RELEASE\spring-context-support-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\apache\logging\log4j\log4j-core\2.13.0\log4j-core-2.13.0.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\apache\logging\log4j\log4j-api\2.13.0\log4j-api-2.13.0.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.10.2\jackson-databind-2.10.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.10.2\jackson-annotations-2.10.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.2\jackson-core-2.10.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="user.timezone" value="Europe/Minsk"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11.0.6\bin"/>
+    <property name="sun.java.command" value="C:\Users\Maryia_Biaseda\AppData\Local\Temp\surefire11845346927713226289\surefirebooter4338901446892037599.jar C:\Users\Maryia_Biaseda\AppData\Local\Temp\surefire11845346927713226289 2020-03-05T16-14-01_868-jvmRun1 surefire9198458888413528881tmp surefire_09380276235184698438tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\repository_jdbc\target\test-classes;C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\repository_jdbc\target\classes;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-jdbc\5.2.3.RELEASE\spring-jdbc-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-beans\5.2.3.RELEASE\spring-beans-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-tx\5.2.3.RELEASE\spring-tx-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\zaxxer\HikariCP\3.4.2\HikariCP-3.4.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\postgresql\postgresql\42.2.10\postgresql-42.2.10.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\opentable\components\otj-pg-embedded\0.13.3\otj-pg-embedded-0.13.3.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\apache\commons\commons-lang3\3.9\commons-lang3-3.9.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\apache\commons\commons-compress\1.19\commons-compress-1.19.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\tukaani\xz\1.5\xz-1.5.jar;C:\Users\Maryia_Biaseda\.m2\repository\commons-io\commons-io\2.6\commons-io-2.6.jar;C:\Users\Maryia_Biaseda\.m2\repository\commons-codec\commons-codec\1.13\commons-codec-1.13.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\github\spotbugs\spotbugs-annotations\3.1.12\spotbugs-annotations-3.1.12.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.28\jcl-over-slf4j-1.7.28.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\mybatis\mybatis\3.5.4\mybatis-3.5.4.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-web\5.2.3.RELEASE\spring-web-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\javax\servlet\javax.servlet-api\4.0.1\javax.servlet-api-4.0.1.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-core\5.2.3.RELEASE\spring-core-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-jcl\5.2.3.RELEASE\spring-jcl-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-context\5.2.3.RELEASE\spring-context-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-aop\5.2.3.RELEASE\spring-aop-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-expression\5.2.3.RELEASE\spring-expression-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-test\5.2.3.RELEASE\spring-test-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\springframework\spring-context-support\5.2.3.RELEASE\spring-context-support-5.2.3.RELEASE.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\apache\logging\log4j\log4j-core\2.13.0\log4j-core-2.13.0.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\apache\logging\log4j\log4j-api\2.13.0\log4j-api-2.13.0.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.10.2\jackson-databind-2.10.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.10.2\jackson-annotations-2.10.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.2\jackson-core-2.10.2.jar;C:\Users\Maryia_Biaseda\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\Maryia_Biaseda\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Maryia_Biaseda"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2020-01-14"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-11.0.6"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\repository_jdbc"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\Maryia_Biaseda\AppData\Local\Temp\surefire11845346927713226289\surefirebooter4338901446892037599.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="11.0.6+8-LTS"/>
+    <property name="user.name" value="Maryia_Biaseda"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="Cp1251"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="18.9"/>
+    <property name="localRepository" value="C:\Users\Maryia_Biaseda\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\MARYIA~1\AppData\Local\Temp\"/>
+    <property name="java.version" value="11.0.6"/>
+    <property name="user.dir" value="C:\Users\Maryia_Biaseda\MY_FILES\NewsManagement\repository_jdbc"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="idea.version2019.3.3" value="true"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.6\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-11.0.6\bin;C:\apache-maven-3.6.3\bin;C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin;C:\Users\Maryia_Biaseda\AppData\Local\Microsoft\WindowsApps;;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.3.3\bin;;."/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vm.version" value="11.0.6+8-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="55.0"/>
+  </properties>
+  <testcase name="testGetAuthorByNameSurname" classname="com.epam.lab.beseda.dao.entitydao.AuthorDAOTest" time="0.548"/>
+  <testcase name="testGetEntityById_noSuchEntity" classname="com.epam.lab.beseda.dao.entitydao.AuthorDAOTest" time="0.373"/>
+  <testcase name="testGetEntityById" classname="com.epam.lab.beseda.dao.entitydao.AuthorDAOTest" time="0.454"/>
+  <testcase name="testAdd_01" classname="com.epam.lab.beseda.dao.entitydao.AuthorDAOTest" time="0.464"/>
+  <testcase name="testAdd_02" classname="com.epam.lab.beseda.dao.entitydao.AuthorDAOTest" time="0.45"/>
+  <testcase name="testDelete" classname="com.epam.lab.beseda.dao.entitydao.AuthorDAOTest" time="0.633"/>
+  <testcase name="testGetNewsId" classname="com.epam.lab.beseda.dao.entitydao.AuthorDAOTest" time="0.285"/>
+  <testcase name="testGetAll" classname="com.epam.lab.beseda.dao.entitydao.AuthorDAOTest" time="0.301"/>
+  <testcase name="testUpdate" classname="com.epam.lab.beseda.dao.entitydao.AuthorDAOTest" time="0.655"/>
+  <testcase name="testAdd" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.347"/>
+  <testcase name="testAddNewsTag" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.57"/>
+  <testcase name="testGetNewsByAuthor" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.317"/>
+  <testcase name="testDeleteNewsTag" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.668"/>
+  <testcase name="testAddAuthorId" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.539"/>
+  <testcase name="testGetEntityById_noSuchEntity" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.347"/>
+  <testcase name="testGetEntityById" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.386"/>
+  <testcase name="testGetNewsTagsNames" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.601"/>
+  <testcase name="testDelete" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.571"/>
+  <testcase name="testGetNewsId" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.3"/>
+  <testcase name="testGetAll" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.317"/>
+  <testcase name="testUpdate" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.564"/>
+  <testcase name="testGetNewsNumber" classname="com.epam.lab.beseda.dao.entitydao.NewsDAOTest" time="0.269"/>
+  <testcase name="testSetGetRole" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.439"/>
+  <testcase name="getUserBylogin_noSuchUser" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.263"/>
+  <testcase name="getUserByLoginAndPassword_noSuchUser" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.37"/>
+  <testcase name="testAdd" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.347"/>
+  <testcase name="getUserBylogin" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.37"/>
+  <testcase name="testGetEntityById" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.401"/>
+  <testcase name="getUserByLoginAndPassword" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.386"/>
+  <testcase name="testDelete" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.52"/>
+  <testcase name="testGetAll" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.337"/>
+  <testcase name="testUpdate" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.522"/>
+  <testcase name="testGetEntityById_noSuchUser" classname="com.epam.lab.beseda.dao.entitydao.UserDAOTest" time="0.316"/>
+  <testcase name="testGetEntityById_noSuchEntity" classname="com.epam.lab.beseda.dao.entitydao.RoleDAOTest" time="0.301"/>
+  <testcase name="testGetEntityById" classname="com.epam.lab.beseda.dao.entitydao.RoleDAOTest" time="0.47"/>
+  <testcase name="testGetEntityByName_noSuchName" classname="com.epam.lab.beseda.dao.entitydao.RoleDAOTest" time="0.533"/>
+  <testcase name="testAdd_01" classname="com.epam.lab.beseda.dao.entitydao.RoleDAOTest" time="0.417"/>
+  <testcase name="testAdd_02" classname="com.epam.lab.beseda.dao.entitydao.RoleDAOTest" time="0.532"/>
+  <testcase name="testDelete" classname="com.epam.lab.beseda.dao.entitydao.RoleDAOTest" time="0.586"/>
+  <testcase name="testGetAll" classname="com.epam.lab.beseda.dao.entitydao.RoleDAOTest" time="0.27"/>
+  <testcase name="testGetEntityByName" classname="com.epam.lab.beseda.dao.entitydao.RoleDAOTest" time="0.563"/>
+  <testcase name="testUpdate" classname="com.epam.lab.beseda.dao.entitydao.RoleDAOTest" time="0.64"/>
+  <testcase name="testGetEntityById_noSuchEntity" classname="com.epam.lab.beseda.dao.entitydao.TagDAOTest" time="0.316"/>
+  <testcase name="testGetEntityById" classname="com.epam.lab.beseda.dao.entitydao.TagDAOTest" time="0.432"/>
+  <testcase name="testAdd_01" classname="com.epam.lab.beseda.dao.entitydao.TagDAOTest" time="0.502"/>
+  <testcase name="testAdd_02" classname="com.epam.lab.beseda.dao.entitydao.TagDAOTest" time="0.401"/>
+  <testcase name="testDelete" classname="com.epam.lab.beseda.dao.entitydao.TagDAOTest" time="0.655"/>
+  <testcase name="testGetAll" classname="com.epam.lab.beseda.dao.entitydao.TagDAOTest" time="0.247"/>
+  <testcase name="testGetEntityByName" classname="com.epam.lab.beseda.dao.entitydao.TagDAOTest" time="0.501"/>
+  <testcase name="testUpdate" classname="com.epam.lab.beseda.dao.entitydao.TagDAOTest" time="0.618"/>
+</testsuite>

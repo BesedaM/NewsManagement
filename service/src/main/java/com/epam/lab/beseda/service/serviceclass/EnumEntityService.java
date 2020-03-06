@@ -1,7 +1,7 @@
 package com.epam.lab.beseda.service.serviceclass;
 
-import com.epam.lab.beseda.dao.entitydao.AbstractDAO;
 import com.epam.lab.beseda.dao.entitydao.EnumEntityDAO;
+import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
 import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
@@ -18,7 +18,7 @@ public abstract class EnumEntityService extends AbstractService<EnumEntity, Enum
     protected EnumEntityService() {
     }
 
-    protected EnumEntityService(AbstractDAO<EnumEntity> dao, Validatable<EnumEntityDTO> validator, EnumEntityMapper mapper) {
+    protected EnumEntityService(AbstractDAOInterface<EnumEntity> dao, Validatable<EnumEntityDTO> validator, EnumEntityMapper mapper) {
         super(dao, validator, mapper);
     }
 

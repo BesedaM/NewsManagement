@@ -31,28 +31,4 @@ public class DAOConfiguration {
         return new JdbcTemplate(getDataSource());
     }
 
-//    @Bean(name = "authorDAO")
-//    public AuthorDAO getAuthorDAO() {
-//        return new AuthorDAO(getJdbcTemplate());
-//    }
-//
-//    @Bean(name = "newsDAO")
-//    public NewsDAO getNewsDAO() {
-//        return new NewsDAO(getJdbcTemplate());
-//    }
-//
-//    @Bean(name = "roleDAO")
-//    public RoleDAO getRoleDAO() {
-//        return new RoleDAO(getJdbcTemplate());
-//    }
-//
-//    @Bean(name = "tagDAO")
-//    public TagDAO getTagDAO() {
-//        return new TagDAO(getJdbcTemplate());
-//    }
-//
-//    @Bean(name = "userDAO")
-//    public UserDAO getUserDAO() {
-//        return new UserDAO(getJdbcTemplate());
-//    }
 }

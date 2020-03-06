@@ -1,8 +1,9 @@
 package com.epam.lab.beseda.service.serviceclass;
 
-import com.epam.lab.beseda.dao.entitydao.AbstractDAO;
-import com.epam.lab.beseda.dao.entitydao.RoleDAO;
 import com.epam.lab.beseda.dao.entitydao.UserDAO;
+import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
+import com.epam.lab.beseda.dao.daointeface.EnumEntityDAOInterface;
+import com.epam.lab.beseda.dao.daointeface.UserDAOInterface;
 import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.dto.UserDTO;
 import com.epam.lab.beseda.entity.EnumEntity;
@@ -27,18 +28,21 @@ import static com.epam.lab.beseda.util.ServiceConstants.USER_WITH_LOGIN_EXISTS;
 @Service
 public class UserService extends AbstractService<User, UserDTO> implements UserServiceInterface {
 
-    public UserService() {
-        super();
-    }
-
     @Autowired
     @Qualifier("enumEntityMapper")
     private EnumEntityMapper enumEntityMapper;
 
     @Autowired
-    private RoleDAO roleDAO;
+    @Qualifier("roleDao")
+    private EnumEntityDAOInterface roleDAO;
 
-    public UserService(UserDAO userDAO, RoleDAO roleDAO, UserValidator validator, UserMapper mapper, EnumEntityMapper enumEntityMapper) {
+
+    public UserService() {
+        super();
+    }
+
+    public UserService(UserDAOInterface userDAO, EnumEntityDAOInterface roleDAO, UserValidator validator, UserMapper mapper,
+                       EnumEntityMapper enumEntityMapper) {
         super(userDAO, validator, mapper);
         this.roleDAO = roleDAO;
         this.enumEntityMapper = enumEntityMapper;
@@ -46,7 +50,7 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
 
     @Autowired
     @Override
-    protected void setDao(AbstractDAO<User> dao) {
+    protected void setDao(AbstractDAOInterface<User> dao) {
         this.dao = dao;
     }
 

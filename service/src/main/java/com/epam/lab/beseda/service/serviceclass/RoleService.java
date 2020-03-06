@@ -1,7 +1,7 @@
 package com.epam.lab.beseda.service.serviceclass;
 
-import com.epam.lab.beseda.dao.entitydao.AbstractDAO;
 import com.epam.lab.beseda.dao.entitydao.RoleDAO;
+import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
 import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
@@ -24,7 +24,7 @@ public class RoleService extends EnumEntityService {
     @Autowired
     @Qualifier("roleDao")
     @Override
-    protected void setDao(AbstractDAO<EnumEntity> dao) {
+    protected void setDao(AbstractDAOInterface<EnumEntity> dao) {
         this.dao = dao;
     }
 

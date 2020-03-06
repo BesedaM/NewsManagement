@@ -1,4 +1,4 @@
-package com.epam.lab.beseda.daointeface;
+package com.epam.lab.beseda.dao.daointeface;
 
 import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.entity.EnumEntity;
