@@ -1,8 +1,8 @@
 package com.epam.lab.beseda.dao.entitydao;
 
 import com.epam.lab.beseda.configuration.TestConfiguration;
-import com.epam.lab.beseda.dao.daointeface.EnumEntityDAOInterface;
-import com.epam.lab.beseda.entity.EnumEntity;
+import com.epam.lab.beseda.dao.daointeface.RoleDAOInterface;
+import com.epam.lab.beseda.entity.Role;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.util.DatabaseConfigure;
 import org.junit.*;
@@ -21,16 +21,16 @@ public class RoleDAOTest {
 
     @Autowired
     @Qualifier("roleDao")
-    private EnumEntityDAOInterface roleDao;
+    private RoleDAOInterface roleDao;
 
-    private static EnumEntity entity;
+    private static Role entity;
 
     @Autowired
     private DatabaseConfigure dbc;
 
     @BeforeClass
     public static void initData() {
-        entity = new EnumEntity("driver");
+        entity = new Role("driver");
     }
 
     @Before
@@ -45,7 +45,7 @@ public class RoleDAOTest {
 
     private void simpleAdd_getEntity() throws DAOLayerException {
         int id = roleDao.add(entity);
-        EnumEntity role = roleDao.getEntityById(id);
+        Role role = roleDao.getEntityById(id);
         Assert.assertEquals(entity, role);
     }
 
@@ -67,10 +67,10 @@ public class RoleDAOTest {
         int id = roleDao.add(entity);
         String newName = "MMM";
 
-        EnumEntity role = roleDao.getEntityById(id);
+        Role role = roleDao.getEntityById(id);
         role.setName(newName);
         roleDao.update(role);
-        EnumEntity updatedRole = roleDao.getEntityById(id);
+        Role updatedRole = roleDao.getEntityById(id);
         Assert.assertEquals(role, updatedRole);
     }
 
@@ -81,7 +81,7 @@ public class RoleDAOTest {
 
     @Test
     public void testGetEntityById_noSuchEntity() throws DAOLayerException {
-        EnumEntity role = roleDao.getEntityById(1000);
+        Role role = roleDao.getEntityById(1000);
         Assert.assertNull(role);
     }
 
@@ -89,27 +89,27 @@ public class RoleDAOTest {
     public void testDelete() throws DAOLayerException {
         simpleAdd_getEntity();
         roleDao.delete(entity.getId());
-        EnumEntity role = roleDao.getEntityById(entity.getId());
+        Role role = roleDao.getEntityById(entity.getId());
         Assert.assertNull(role);
     }
 
     @Test
     public void testGetAll() {
-        List<EnumEntity> roles = roleDao.getAll();
+        List<Role> roles = roleDao.getAll();
         Assert.assertTrue(roles.size() == 3);
     }
 
     @Test
     public void testGetEntityByName() throws DAOLayerException {
         simpleAdd_getEntity();
-        EnumEntity role = roleDao.getEntityByName(entity.getName());
+        Role role = roleDao.getEntityByName(entity.getName());
         Assert.assertEquals(entity, role);
     }
 
     @Test
     public void testGetEntityByName_noSuchName() throws DAOLayerException {
         simpleAdd_getEntity();
-        EnumEntity role = roleDao.getEntityByName("no_name");
+        Role role = roleDao.getEntityByName("no_name");
         Assert.assertNull(role);
     }
 

@@ -1,12 +1,12 @@
 package com.epam.lab.beseda.service.serviceclass;
 
 import com.epam.lab.beseda.dao.entitydao.RoleDAO;
-import com.epam.lab.beseda.dto.EnumEntityDTO;
-import com.epam.lab.beseda.entity.EnumEntity;
+import com.epam.lab.beseda.dto.RoleDTO;
+import com.epam.lab.beseda.entity.Role;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.exception.validation.ValidationException;
-import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
+import com.epam.lab.beseda.service.modelmapper.RoleMapper;
 import com.epam.lab.beseda.service.validator.RoleValidator;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -27,10 +27,10 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @RunWith(MockitoJUnitRunner.class)
 public class RoleServiceTest {
 
-    private static List<EnumEntity> roles;
-    private static List<EnumEntityDTO> rolesDTO;
-    private static EnumEntityDTO roleDTO;
-    private static EnumEntity role;
+    private static List<Role> roles;
+    private static List<RoleDTO> rolesDTO;
+    private static RoleDTO roleDTO;
+    private static Role role;
 
     @Mock
     private RoleDAO roleDao;
@@ -39,7 +39,7 @@ public class RoleServiceTest {
     private RoleValidator validator;
 
     @Mock
-    private EnumEntityMapper mapper;
+    private RoleMapper mapper;
 
     @InjectMocks
     private RoleService service;
@@ -47,22 +47,22 @@ public class RoleServiceTest {
     @BeforeClass
     public static void init() {
         roles = new ArrayList<>();
-        roles.add(new EnumEntity(1, "one"));
-        roles.add(new EnumEntity(2, "two"));
-        role = new EnumEntity();
+        roles.add(new Role(1, "one"));
+        roles.add(new Role(2, "two"));
+        role = new Role(1, "one");
 
         rolesDTO = new ArrayList<>();
-        rolesDTO.add(new EnumEntityDTO(1, "one"));
-        rolesDTO.add(new EnumEntityDTO(1, "two"));
-        roleDTO = new EnumEntityDTO();
+        rolesDTO.add(new RoleDTO(1, "one"));
+        rolesDTO.add(new RoleDTO(1, "two"));
+        roleDTO = new RoleDTO(1, "one");
     }
 
 
     @Test
     public void testGetAll() {
         Mockito.when(roleDao.getAll()).thenReturn(roles);
-        Mockito.when(mapper.toDto(isA(EnumEntity.class))).thenReturn(new EnumEntityDTO());
-        List<EnumEntityDTO> receivedRoles = service.getAll();
+        Mockito.when(mapper.toDto(isA(Role.class))).thenReturn(new RoleDTO());
+        List<RoleDTO> receivedRoles = service.getAll();
         Mockito.verify(roleDao, times(1)).getAll();
         Assert.assertEquals(receivedRoles.size(), 2);
     }
@@ -72,10 +72,10 @@ public class RoleServiceTest {
     public void testGetEntityById() {
         int id = 1;
         Mockito.when(roleDao.getEntityById(id)).thenReturn(role);
-        Mockito.when(mapper.toDto(isA(EnumEntity.class))).thenReturn(roleDTO);
-        EnumEntityDTO role = service.getDtoById(id);
+        Mockito.when(mapper.toDto(isA(Role.class))).thenReturn(roleDTO);
+        RoleDTO role = service.getDtoById(id);
         Mockito.verify(roleDao, times(1)).getEntityById(id);
-        Mockito.verify(mapper, times(1)).toDto(isA(EnumEntity.class));
+        Mockito.verify(mapper, times(1)).toDto(isA(Role.class));
         Assert.assertEquals(role, roleDTO);
     }
 
@@ -89,13 +89,13 @@ public class RoleServiceTest {
 
     @Test
     public void testAdd_correctData() throws DAOLayerException, ServiceLayerException {
-        Mockito.doNothing().when(validator).validate(any(EnumEntityDTO.class));
-        Mockito.when(roleDao.add(any(EnumEntity.class))).thenReturn(1);
-        Mockito.when(mapper.toEntity(any(EnumEntityDTO.class))).thenReturn(role);
+        Mockito.doNothing().when(validator).validate(any(RoleDTO.class));
+        Mockito.when(roleDao.add(any(Role.class))).thenReturn(1);
+        Mockito.when(mapper.toEntity(any(RoleDTO.class))).thenReturn(role);
 
         service.add(roleDTO);
-        Mockito.verify(roleDao, times(1)).add(any(EnumEntity.class));
-        Mockito.verify(validator, times(1)).validate(any(EnumEntityDTO.class));
+        Mockito.verify(roleDao, times(1)).add(any(Role.class));
+        Mockito.verify(validator, times(1)).validate(any(RoleDTO.class));
     }
 
     @Test(expected = ServiceLayerException.class)
@@ -103,34 +103,36 @@ public class RoleServiceTest {
         Mockito.doThrow(new ValidationException()).when(validator).validate(roleDTO);
 
         service.add(roleDTO);
-        Mockito.verify(roleDao, never()).add(any(EnumEntity.class));
-        Mockito.verify(validator, times(1)).validate(any(EnumEntityDTO.class));
+        Mockito.verify(roleDao, never()).add(any(Role.class));
+        Mockito.verify(validator, times(1)).validate(any(RoleDTO.class));
     }
 
     @Test
     public void testUpdate_correctData() throws DAOLayerException, ServiceLayerException {
-        Mockito.doNothing().when(validator).validate(any(EnumEntityDTO.class));
-        Mockito.doNothing().when(roleDao).update(any(EnumEntity.class));
-        Mockito.when(mapper.toEntity(any(EnumEntityDTO.class))).thenReturn(role);
+        Mockito.when(roleDao.getEntityById(anyInt())).thenReturn(role);
+        Mockito.doNothing().when(validator).validate(any(RoleDTO.class));
+        Mockito.doNothing().when(roleDao).update(any(Role.class));
+        Mockito.when(mapper.toEntity(any(RoleDTO.class))).thenReturn(role);
         service.update(roleDTO);
-        Mockito.verify(validator, times(1)).validate(any(EnumEntityDTO.class));
-        Mockito.verify(roleDao, times(1)).update(any(EnumEntity.class));
+        Mockito.verify(validator, times(1)).validate(any(RoleDTO.class));
+        Mockito.verify(roleDao, times(1)).update(any(Role.class));
     }
 
     @Test(expected = ServiceLayerException.class)
     public void testUpdate_incorrectData() throws DAOLayerException, ServiceLayerException {
-        Mockito.doThrow(ValidationException.class).when(validator).validate(any(EnumEntityDTO.class));
+        Mockito.when(roleDao.getEntityById(anyInt())).thenReturn(role);
+        Mockito.doThrow(ValidationException.class).when(validator).validate(any(RoleDTO.class));
         service.update(roleDTO);
         Mockito.verify(validator, times(1)).validate(roleDTO);
-        Mockito.verify(roleDao, never()).update(any(EnumEntity.class));
+        Mockito.verify(roleDao, never()).update(any(Role.class));
     }
 
     @Test
     public void testGetEntityByName() {
         String name = "two";
-        Mockito.when(mapper.toDto(any(EnumEntity.class))).thenReturn(roleDTO);
+        Mockito.when(mapper.toDto(any(Role.class))).thenReturn(roleDTO);
         when(roleDao.getEntityByName(name)).thenReturn(role);
-        EnumEntityDTO entity = service.getEntityByName(name);
+        RoleDTO entity = service.getEntityByName(name);
 
         verify(roleDao, atMostOnce()).getEntityByName(anyString());
         Assert.assertEquals(roleDTO, entity);

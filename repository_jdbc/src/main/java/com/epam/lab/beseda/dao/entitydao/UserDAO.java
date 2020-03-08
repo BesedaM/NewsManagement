@@ -1,7 +1,7 @@
 package com.epam.lab.beseda.dao.entitydao;
 
 import com.epam.lab.beseda.dao.daointeface.UserDAOInterface;
-import com.epam.lab.beseda.entity.EnumEntity;
+import com.epam.lab.beseda.entity.Role;
 import com.epam.lab.beseda.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,8 +22,8 @@ public class UserDAO extends AbstractDAO<User> implements UserDAOInterface {
     }
 
     @Autowired
-    @Qualifier("enumEntityExtractor")
-    protected ResultSetExtractor<EnumEntity> roleExtractor;
+    @Qualifier("roleExtractor")
+    protected ResultSetExtractor<Role> roleExtractor;
 
     @Autowired
     @Qualifier("userRowMapper")
@@ -66,7 +66,7 @@ public class UserDAO extends AbstractDAO<User> implements UserDAOInterface {
     }
 
     @Override
-    public EnumEntity getRole(int userId) {
+    public Role getRole(int userId) {
         return jdbcTemplate.query(USER_ROLE_GET_ROLE, new Object[]{userId}, roleExtractor);
     }
 

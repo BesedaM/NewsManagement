@@ -125,6 +125,7 @@ public class AuthorServiceTest {
 
     @Test
     public void testUpdate_correctData() throws DAOLayerException, ServiceLayerException {
+        Mockito.when(authorDao.getEntityById(anyInt())).thenReturn(author);
         Mockito.doNothing().when(validator).validate(any(AuthorDTO.class));
         Mockito.doNothing().when(authorDao).update(any(Author.class));
         Mockito.when(mapper.toEntity(any(AuthorDTO.class))).thenReturn(author);
@@ -136,6 +137,7 @@ public class AuthorServiceTest {
 
     @Test(expected = ServiceLayerException.class)
     public void testUpdate_incorrectData() throws DAOLayerException, ServiceLayerException {
+        Mockito.when(authorDao.getEntityById(anyInt())).thenReturn(author);
         Mockito.doThrow(ValidationException.class).when(validator).validate(any(AuthorDTO.class));
         service.update(authorDTO);
         Mockito.verify(validator, times(1)).validate(authorDTO);

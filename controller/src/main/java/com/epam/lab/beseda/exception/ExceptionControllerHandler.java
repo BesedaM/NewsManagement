@@ -30,7 +30,7 @@ public class ExceptionControllerHandler {
         return e.getMessage();
     }
 
-    @ExceptionHandler(value = {ServiceLayerException.class, NotEnoughArgumentsException.class})
+    @ExceptionHandler(value = {ServiceLayerException.class})
     public String defaultErrorHandler(HttpServletRequest req, Exception e) {
         logger.error(e);
         return e.getMessage();

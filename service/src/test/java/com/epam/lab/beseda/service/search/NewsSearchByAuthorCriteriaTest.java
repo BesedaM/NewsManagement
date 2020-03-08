@@ -44,7 +44,7 @@ public class NewsSearchByAuthorCriteriaTest {
         Mockito.when(newsDao.getNewsByAuthor(any(Author.class))).thenReturn(newsList);
         Mockito.when(newsMapper.toDto(any(News.class))).thenReturn(new NewsDTO());
 
-        List<NewsDTO> foundNews = searchCriteria.findByAuthor(new AuthorDTO());
+        List<NewsDTO> foundNews = searchCriteria.findByAuthor(new AuthorDTO("Andrei","Sergeev"));
 
         Mockito.verify(newsMapper, Mockito.times(2)).toDto(any(News.class));
     }

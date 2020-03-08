@@ -1,15 +1,12 @@
 package com.epam.lab.beseda.configuration;
 
-import com.epam.lab.beseda.dao.resultsetextractor.AuthorExtractor;
-import com.epam.lab.beseda.dao.resultsetextractor.EnumEntityExtractor;
-import com.epam.lab.beseda.dao.resultsetextractor.NewsExtractor;
-import com.epam.lab.beseda.dao.resultsetextractor.UserExtractor;
+import com.epam.lab.beseda.dao.resultsetextractor.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan({"com.epam.lab.beseda.dao.resultsetextractor"})
+@ComponentScan({"com.epam.lab.com.epam.lab.beseda.dao.resultsetextractor"})
 public class DAOResultSetExtractorConfig {
 
     @Bean(name="authorExtractor")
@@ -27,8 +24,14 @@ public class DAOResultSetExtractorConfig {
         return new UserExtractor();
     }
 
-    @Bean(name="enumEntityExtractor")
-    public EnumEntityExtractor getEnumEntityMapper(){
-        return new EnumEntityExtractor();
+    @Bean(name="roleExtractor")
+    public RoleExtractor getRoleMapper(){
+        return new RoleExtractor();
     }
+
+    @Bean(name="tagExtractor")
+    public TagExtractor getTagMapper(){
+        return new TagExtractor();
+    }
+
 }

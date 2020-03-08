@@ -1,6 +1,6 @@
 package com.epam.lab.beseda.service.validator;
 
-import com.epam.lab.beseda.dto.EnumEntityDTO;
+import com.epam.lab.beseda.dto.TagDTO;
 import com.epam.lab.beseda.exception.validation.IrregularLengthException;
 import com.epam.lab.beseda.exception.validation.IrregularStringFormatException;
 import com.epam.lab.beseda.exception.validation.NullValueException;
@@ -15,14 +15,14 @@ import static com.epam.lab.beseda.util.DBEntityTable.NAME;
 import static com.epam.lab.beseda.util.ServiceConstants.*;
 
 @Component
-public class TagValidator implements Validatable<EnumEntityDTO> {
+public class TagValidator implements Validatable<TagDTO> {
 
     @Autowired
     @Qualifier("nonStringValuePattern")
     private Pattern pattern;
 
     @Override
-    public void validate(EnumEntityDTO entity) throws ValidationException {
+    public void validate(TagDTO entity) throws ValidationException {
         if (entity == null) {
             throw new NullValueException();
         } else if (entity.getName() == null) {

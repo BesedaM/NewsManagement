@@ -3,7 +3,6 @@ package com.epam.lab.beseda.exception;
 public class ParameterNotExistsException extends DAOLayerException{
 
     public ParameterNotExistsException() {
-        super();
     }
 
     public ParameterNotExistsException(String message) {

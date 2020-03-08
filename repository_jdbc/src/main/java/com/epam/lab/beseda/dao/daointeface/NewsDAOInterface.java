@@ -1,8 +1,8 @@
 package com.epam.lab.beseda.dao.daointeface;
 
 import com.epam.lab.beseda.entity.Author;
-import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.News;
+import com.epam.lab.beseda.entity.Tag;
 import com.epam.lab.beseda.exception.ParameterNotExistsException;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface NewsDAOInterface extends AbstractDAOInterface<News>{
 
     List<String> getNewsTagsNames(int newsId);
 
-    List<EnumEntity> getNewsTags(int newsId);
+    List<Tag> getNewsTags(int newsId);
 
     void addAuthor(int newsId, int authorId);
 

@@ -1,12 +1,12 @@
 package com.epam.lab.beseda.service.serviceclass;
 
 import com.epam.lab.beseda.dao.entitydao.TagDAO;
-import com.epam.lab.beseda.dto.EnumEntityDTO;
-import com.epam.lab.beseda.entity.EnumEntity;
+import com.epam.lab.beseda.dto.TagDTO;
+import com.epam.lab.beseda.entity.Tag;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.exception.validation.ValidationException;
-import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
+import com.epam.lab.beseda.service.modelmapper.TagMapper;
 import com.epam.lab.beseda.service.validator.TagValidator;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -28,16 +28,16 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @RunWith(MockitoJUnitRunner.class)
 public class TagServiceTest {
 
-    private static List<EnumEntity> tags;
-    private static List<EnumEntityDTO> tagsDTO;
-    private static EnumEntity tag;
-    private static EnumEntityDTO tagDTO;
+    private static List<Tag> tags;
+    private static List<TagDTO> tagsDTO;
+    private static Tag tag;
+    private static TagDTO tagDTO;
 
     @Mock
     private TagDAO tagDAO;
 
     @Mock
-    private EnumEntityMapper mapper;
+    private TagMapper mapper;
 
     @Mock
     private TagValidator tagValidator;
@@ -48,26 +48,26 @@ public class TagServiceTest {
     @BeforeClass
     public static void init() {
         tags = new ArrayList<>();
-        tags.add(new EnumEntity(1, "one"));
-        tags.add(new EnumEntity(2, "two"));
-        tags.add(new EnumEntity(3, "three"));
+        tags.add(new Tag(1, "one"));
+        tags.add(new Tag(2, "two"));
+        tags.add(new Tag(3, "three"));
 
         tagsDTO = new ArrayList<>();
-        tagsDTO.add(new EnumEntityDTO(1, "one"));
-        tagsDTO.add(new EnumEntityDTO(2, "two"));
-        tagsDTO.add(new EnumEntityDTO(3, "three"));
+        tagsDTO.add(new TagDTO(1, "one"));
+        tagsDTO.add(new TagDTO(2, "two"));
+        tagsDTO.add(new TagDTO(3, "three"));
 
-        tag = new EnumEntity();
-        tagDTO = new EnumEntityDTO();
+        tag = new Tag(1, "one");
+        tagDTO = new TagDTO(1, "one");
     }
 
 
     @Test
     public void testGetAll() {
         Mockito.when(tagDAO.getAll()).thenReturn(tags);
-        Mockito.when(mapper.toDto(any(EnumEntity.class))).thenReturn(new EnumEntityDTO());
+        Mockito.when(mapper.toDto(any(Tag.class))).thenReturn(new TagDTO());
 
-        List<EnumEntityDTO> receivedRoles = service.getAll();
+        List<TagDTO> receivedRoles = service.getAll();
         Mockito.verify(tagDAO, times(1)).getAll();
         Assert.assertEquals(receivedRoles.size(), 3);
     }
@@ -77,8 +77,8 @@ public class TagServiceTest {
     public void testGetEntityById() {
         int id = 1;
         Mockito.when(tagDAO.getEntityById(id)).thenReturn(tag);
-        Mockito.when(mapper.toDto(any(EnumEntity.class))).thenReturn(tagDTO);
-        EnumEntityDTO role = service.getDtoById(id);
+        Mockito.when(mapper.toDto(any(Tag.class))).thenReturn(tagDTO);
+        TagDTO role = service.getDtoById(id);
         Mockito.verify(tagDAO, times(1)).getEntityById(id);
         Assert.assertEquals(role, tagDTO);
     }
@@ -93,9 +93,9 @@ public class TagServiceTest {
 
     @Test
     public void testAdd_correctData() throws DAOLayerException, ServiceLayerException {
-        Mockito.doNothing().when(tagValidator).validate(any(EnumEntityDTO.class));
-        Mockito.when(tagDAO.add(any(EnumEntity.class))).thenReturn(1);
-        Mockito.when(mapper.toEntity(any(EnumEntityDTO.class))).thenReturn(tag);
+        Mockito.doNothing().when(tagValidator).validate(any(TagDTO.class));
+        Mockito.when(tagDAO.add(any(Tag.class))).thenReturn(1);
+        Mockito.when(mapper.toEntity(any(TagDTO.class))).thenReturn(tag);
 
         service.add(tagDTO);
         Mockito.verify(tagDAO, times(1)).add(tag);
@@ -113,18 +113,20 @@ public class TagServiceTest {
 
     @Test
     public void testUpdate_correctData() throws DAOLayerException, ServiceLayerException {
-        Mockito.doNothing().when(tagValidator).validate(any(EnumEntityDTO.class));
-        Mockito.doNothing().when(tagDAO).update(any(EnumEntity.class));
-        Mockito.when(mapper.toEntity(any(EnumEntityDTO.class))).thenReturn(tag);
+        Mockito.when(tagDAO.getEntityById(anyInt())).thenReturn(tag);
+        Mockito.doNothing().when(tagValidator).validate(any(TagDTO.class));
+        Mockito.doNothing().when(tagDAO).update(any(Tag.class));
+        Mockito.when(mapper.toEntity(any(TagDTO.class))).thenReturn(tag);
 
         service.update(tagDTO);
-        Mockito.verify(tagValidator, times(1)).validate(any(EnumEntityDTO.class));
-        Mockito.verify(tagDAO, times(1)).update(any(EnumEntity.class));
+        Mockito.verify(tagValidator, times(1)).validate(any(TagDTO.class));
+        Mockito.verify(tagDAO, times(1)).update(any(Tag.class));
     }
 
     @Test(expected = ServiceLayerException.class)
     public void testUpdate_incorrectData() throws DAOLayerException, ServiceLayerException {
-        Mockito.doThrow(ValidationException.class).when(tagValidator).validate(any(EnumEntityDTO.class));
+        Mockito.when(tagDAO.getEntityById(anyInt())).thenReturn(tag);
+        Mockito.doThrow(ValidationException.class).when(tagValidator).validate(any(TagDTO.class));
         service.update(tagDTO);
         Mockito.verify(tagValidator, times(1)).validate(tagDTO);
         Mockito.verify(tagDAO, never()).update(tag);
@@ -134,7 +136,7 @@ public class TagServiceTest {
     public void testGetEntityByName() {
         String name = "two";
         when(tagDAO.getEntityByName(name)).thenReturn(tag);
-        EnumEntityDTO entity = service.getEntityByName(name);
+        TagDTO entity = service.getEntityByName(name);
 
         verify(tagDAO, atMostOnce()).getEntityByName(anyString());
     }

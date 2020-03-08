@@ -1,6 +1,7 @@
 package com.epam.lab.beseda.exception;
 
-public class MapperException extends ServiceLayerException{
+
+public class MapperException extends ServiceLayerException {
 
     public MapperException() {
     }

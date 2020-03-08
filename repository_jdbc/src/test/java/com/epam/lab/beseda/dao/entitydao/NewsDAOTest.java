@@ -3,8 +3,8 @@ package com.epam.lab.beseda.dao.entitydao;
 import com.epam.lab.beseda.configuration.TestConfiguration;
 import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
 import com.epam.lab.beseda.entity.Author;
-import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.News;
+import com.epam.lab.beseda.entity.Tag;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.util.DatabaseConfigure;
 import org.junit.*;
@@ -109,7 +109,7 @@ public class NewsDAOTest {
         simpleAdd_getEntity();
         int id = entity.getId();
         newsDao.addNewsTag(id, 1);
-        List<EnumEntity> tagList = newsDao.getNewsTags(id);
+        List<Tag> tagList = newsDao.getNewsTags(id);
         Assert.assertTrue(tagList.size() == 1 && tagList.get(0).getId() == 1);
     }
 
@@ -120,7 +120,7 @@ public class NewsDAOTest {
         newsDao.addNewsTag(id, 1);
         newsDao.addNewsTag(id, 2);
         newsDao.deleteNewsTag(id, 1);
-        List<EnumEntity> tagList = newsDao.getNewsTags(id);
+        List<Tag> tagList = newsDao.getNewsTags(id);
         Assert.assertTrue(tagList.size() == 1 && tagList.get(0).getId() == 2);
     }
 

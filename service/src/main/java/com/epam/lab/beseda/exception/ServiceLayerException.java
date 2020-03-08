@@ -1,9 +1,8 @@
 package com.epam.lab.beseda.exception;
 
-public class ServiceLayerException extends Exception {
+public class ServiceLayerException extends Exception{
 
     public ServiceLayerException() {
-        super();
     }
 
     public ServiceLayerException(String message) {

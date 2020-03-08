@@ -1,5 +1,6 @@
 package com.epam.lab.beseda.service.serviceinterface;
 
+
 import com.epam.lab.beseda.exception.ServiceLayerException;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface AbstractServiceInterface<D> {
 
     void add(D entity) throws ServiceLayerException;
 
-    void update(D entity) throws ServiceLayerException;
+    D update(D entity) throws ServiceLayerException;
 
     void delete(int entityId);
 }

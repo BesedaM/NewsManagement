@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class NewsSearchByAuthorCriteria extends NewsSearchCriteria{
+public class NewsSearchByAuthorCriteria extends NewsSearchCriteria {
 
     @Autowired
     @Qualifier("authorMapper")
@@ -20,11 +20,11 @@ public class NewsSearchByAuthorCriteria extends NewsSearchCriteria{
 
     public List<NewsDTO> findByAuthor(AuthorDTO author) {
         List<NewsDTO> newsDTOList = new ArrayList<>();
-        if(author!=null) {
+        if (author != null
+                && author.getName() != null
+                && author.getSurname() != null) {
             List<News> newsList = dao.getNewsByAuthor(authorMapper.toEntity(author));
-
-            for (News nn :
-                    newsList) {
+            for (News nn : newsList) {
                 newsDTOList.add(mapper.toDto(nn));
             }
         }

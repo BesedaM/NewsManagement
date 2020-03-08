@@ -1,7 +1,7 @@
 package com.epam.lab.beseda.service.validator;
 
 import com.epam.lab.beseda.configuration.ServiceValidatorConfig;
-import com.epam.lab.beseda.dto.EnumEntityDTO;
+import com.epam.lab.beseda.dto.TagDTO;
 import com.epam.lab.beseda.exception.validation.IrregularLengthException;
 import com.epam.lab.beseda.exception.validation.IrregularStringFormatException;
 import com.epam.lab.beseda.exception.validation.NullValueException;
@@ -29,7 +29,7 @@ public class TagValidatorTest {
 
     @Test(expected = NullValueException.class)
     public void testValidate_nullName() throws ValidationException {
-        EnumEntityDTO tag = new EnumEntityDTO(null);
+        TagDTO tag = new TagDTO(null);
         validator.validate(tag);
     }
 
@@ -37,17 +37,17 @@ public class TagValidatorTest {
     //Name format test
     @Test(expected = IrregularStringFormatException.class)
     public void testValidateNameFieldFormat_numbers_incorrect() throws ValidationException {
-        validator.validate(new EnumEntityDTO("776nbcn"));
+        validator.validate(new TagDTO("776nbcn"));
     }
 
     @Test(expected = IrregularStringFormatException.class)
     public void testValidateNameFieldFormat_symbol01_incorrect() throws ValidationException {
-        validator.validate(new EnumEntityDTO("hjghd fgnsgn"));
+        validator.validate(new TagDTO("hjghd fgnsgn"));
     }
 
     @Test(expected = IrregularStringFormatException.class)
     public void testValidateNameFieldFormat_symbol02_incorrect() throws ValidationException {
-        validator.validate(new EnumEntityDTO("huiadb&"));
+        validator.validate(new TagDTO("huiadb&"));
     }
 
 
@@ -55,25 +55,25 @@ public class TagValidatorTest {
 
     @Test(expected = IrregularLengthException.class)
     public void testValidateNameFieldLength_small_incorrect() throws ValidationException {
-        EnumEntityDTO entity = new EnumEntityDTO("Jo");
+        TagDTO entity = new TagDTO("Jo");
         validator.validate(entity);
     }
 
     @Test
     public void testValidateNameFieldLength_small_correct() throws ValidationException {
-        EnumEntityDTO entity = new EnumEntityDTO("Jot");
+        TagDTO entity = new TagDTO("Jot");
         validator.validate(entity);
     }
 
     @Test(expected = IrregularLengthException.class)
     public void testValidateNameFieldLength_large_incorrect() throws ValidationException {
-        EnumEntityDTO entity = new EnumEntityDTO("adadadadaOadadadadaOa");
+        TagDTO entity = new TagDTO("adadadadaOadadadadaOa");
         validator.validate(entity);
     }
 
     @Test
     public void testValidateNameFieldLength_large_correct() throws ValidationException {
-        EnumEntityDTO entity = new EnumEntityDTO("adadadadaOadadadadaO");
+        TagDTO entity = new TagDTO("adadadadaOadadadadaO");
         validator.validate(entity);
     }
 }

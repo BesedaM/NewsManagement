@@ -1,9 +1,8 @@
 package com.epam.lab.beseda.exception;
 
-public class NotEnoughArgumentsException extends Exception{
+public class NotEnoughArgumentsException extends ServiceLayerException{
 
     public NotEnoughArgumentsException() {
-        super();
     }
 
     public NotEnoughArgumentsException(String message) {
@@ -18,7 +17,7 @@ public class NotEnoughArgumentsException extends Exception{
         super(cause);
     }
 
-    protected NotEnoughArgumentsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public NotEnoughArgumentsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

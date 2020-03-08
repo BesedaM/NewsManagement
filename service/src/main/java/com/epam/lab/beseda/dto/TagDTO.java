@@ -2,18 +2,18 @@ package com.epam.lab.beseda.dto;
 
 import java.util.Objects;
 
-public class EnumEntityDTO extends BaseDTO{
+public class TagDTO extends BaseDTO{
 
     private String name;
 
-    public EnumEntityDTO() {
+    public TagDTO() {
     }
 
-    public EnumEntityDTO(String name) {
+    public TagDTO(String name) {
         this.name = name;
     }
 
-    public EnumEntityDTO(int id, String name) {
+    public TagDTO(int id, String name) {
         super(id);
         this.name = name;
     }
@@ -29,10 +29,10 @@ public class EnumEntityDTO extends BaseDTO{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EnumEntityDTO)) return false;
+        if (!(o instanceof TagDTO)) return false;
         if (!super.equals(o)) return false;
-        EnumEntityDTO enumEntityDTO = (EnumEntityDTO) o;
-        return Objects.equals(name, enumEntityDTO.name);
+        TagDTO tagDTO = (TagDTO) o;
+        return Objects.equals(name, tagDTO.name);
     }
 
     @Override

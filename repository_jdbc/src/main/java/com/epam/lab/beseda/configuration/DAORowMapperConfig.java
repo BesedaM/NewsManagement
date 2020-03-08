@@ -1,15 +1,12 @@
 package com.epam.lab.beseda.configuration;
 
-import com.epam.lab.beseda.dao.rowmapper.AuthorRowMapper;
-import com.epam.lab.beseda.dao.rowmapper.EnumEntityRowMapper;
-import com.epam.lab.beseda.dao.rowmapper.NewsRowMapper;
-import com.epam.lab.beseda.dao.rowmapper.UserRowMapper;
+import com.epam.lab.beseda.dao.rowmapper.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan({"com.epam.lab.beseda.dao.rowmapper"})
+@ComponentScan({"com.epam.lab.com.epam.lab.beseda.dao.rowmapper"})
 public class DAORowMapperConfig {
 
     @Bean(name="authorRowMapper")
@@ -27,8 +24,13 @@ public class DAORowMapperConfig {
         return new UserRowMapper();
     }
 
-    @Bean(name="enumEntityRowMapper")
-    public EnumEntityRowMapper getEnumEntityRowMapper(){
-        return new EnumEntityRowMapper();
+    @Bean(name="roleRowMapper")
+    public RoleRowMapper getRoleRowMapper(){
+        return new RoleRowMapper();
+    }
+
+    @Bean(name="tagRowMapper")
+    public TagRowMapper getTagRowMapper(){
+        return new TagRowMapper();
     }
 }

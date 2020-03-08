@@ -23,14 +23,12 @@ public class AuthorDAO extends AbstractDAO<Author> implements AuthorDAOInterface
     }
 
     @Autowired
-//    @Qualifier("authorRowMapper")
     @Override
     protected void setRowMapper(RowMapper<Author> rowMapper) {
         this.rowMapper = rowMapper;
     }
 
     @Autowired
-//    @Qualifier("authorExtractor")
     @Override
     protected void setResultSetExtractor(ResultSetExtractor<Author> rsExtractor) {
         this.rsExtractor = rsExtractor;

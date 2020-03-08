@@ -29,38 +29,15 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public UserDTO addUser(@RequestBody UserDTO userDTO) throws ServiceLayerException, NotEnoughArgumentsException {
-        if (userDTO.getName() == null
-                || userDTO.getSurname() == null
-                || userDTO.getLogin() == null
-                || userDTO.getPassword() == null
-                || userDTO.getRole() == null) {
-            throw new NotEnoughArgumentsException(FULL_USER_DATA_REQUIRED);
-        }
-        this.service.add(userDTO);
+    public UserDTO addUser(@RequestBody UserDTO userDTO) throws ServiceLayerException {
+        service.add(userDTO);
         return userDTO;
     }
 
     @PutMapping("/{id}")
     public UserDTO updateUser(@PathVariable("id") int id, @RequestBody UserDTO user) throws ServiceLayerException {
-        UserDTO userDTO = service.getDtoById(id);
-        if (user.getName() != null) {
-            userDTO.setName(user.getName());
-        }
-        if (user.getSurname() != null) {
-            userDTO.setSurname(user.getSurname());
-        }
-        if (user.getLogin() != null) {
-            userDTO.setLogin(user.getLogin());
-        }
-        if (user.getPassword() != null) {
-            userDTO.setPassword(user.getPassword());
-        }
-        if (user.getRole() != null) {
-            userDTO.setRole(user.getRole());
-        }
-        service.update(userDTO);
-        return userDTO;
+        user.setId(id);
+        return service.update(user);
     }
 
 

@@ -56,7 +56,6 @@ public abstract class AbstractService<K extends BaseEntity, D extends BaseDTO> i
 
     @Override
     public void add(D dto) throws ServiceLayerException {
-        validator.validate(dto);
         try {
             int id = dao.add(mapper.toEntity(dto));
             dto.setId(id);
@@ -66,13 +65,14 @@ public abstract class AbstractService<K extends BaseEntity, D extends BaseDTO> i
     }
 
     @Override
-    public void update(D dto) throws ServiceLayerException {
+    public D update(D dto) throws ServiceLayerException {
         validator.validate(dto);
         try {
             dao.update(mapper.toEntity(dto));
         } catch (DAOLayerException e) {
             throw new ServiceLayerException(e);
         }
+        return dto;
     }
 
     @Override

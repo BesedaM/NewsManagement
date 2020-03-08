@@ -4,18 +4,18 @@ import com.epam.lab.beseda.dao.entitydao.AuthorDAO;
 import com.epam.lab.beseda.dao.entitydao.NewsDAO;
 import com.epam.lab.beseda.dao.entitydao.TagDAO;
 import com.epam.lab.beseda.dto.AuthorDTO;
-import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
+import com.epam.lab.beseda.dto.TagDTO;
 import com.epam.lab.beseda.entity.Author;
-import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.News;
+import com.epam.lab.beseda.entity.Tag;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.exception.ParameterNotExistsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.exception.validation.ValidationException;
 import com.epam.lab.beseda.service.modelmapper.AuthorMapper;
-import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
 import com.epam.lab.beseda.service.modelmapper.NewsMapper;
+import com.epam.lab.beseda.service.modelmapper.TagMapper;
 import com.epam.lab.beseda.service.validator.NewsValidator;
 import com.epam.lab.beseda.service.validator.TagValidator;
 import org.junit.Assert;
@@ -61,7 +61,7 @@ public class NewsServiceTest {
     private AuthorMapper authorMapper;
 
     @Mock
-    private EnumEntityMapper tagMapper;
+    private TagMapper tagMapper;
 
     @Mock
     private NewsDAO newsDao;
@@ -159,7 +159,7 @@ public class NewsServiceTest {
         Mockito.when(mapper.toEntity(any(NewsDTO.class))).thenReturn(news);
         Mockito.when(authorMapper.toEntity(any(AuthorDTO.class))).thenReturn(new Author());
         Mockito.when(tagDAO.getEntityByName(anyString())).thenReturn(null);
-        Mockito.when(tagDAO.add(any(EnumEntity.class))).thenReturn(5);
+        Mockito.when(tagDAO.add(any(Tag.class))).thenReturn(5);
         Mockito.doNothing().when(newsDao).addNewsTag(anyInt(), anyInt());
 
         service.add(newsDTO);
@@ -198,6 +198,7 @@ public class NewsServiceTest {
 
     @Test
     public void testUpdate_correctData() throws DAOLayerException, ServiceLayerException {
+        Mockito.when(newsDao.getEntityById(anyInt())).thenReturn(news);
         Mockito.doNothing().when(validator).validate(any(NewsDTO.class));
         Mockito.doNothing().when(newsDao).update(any(News.class));
         Mockito.when(mapper.toEntity(any(NewsDTO.class))).thenReturn(news);
@@ -210,6 +211,7 @@ public class NewsServiceTest {
 
     @Test(expected = ServiceLayerException.class)
     public void testUpdate_incorrectData() throws DAOLayerException, ServiceLayerException {
+        Mockito.when(newsDao.getEntityById(anyInt())).thenReturn(news);
         Mockito.doThrow(ValidationException.class).when(validator).validate(any(NewsDTO.class));
         service.update(newsDTO);
         Mockito.verify(validator, times(1)).validate(any(NewsDTO.class));
@@ -231,9 +233,9 @@ public class NewsServiceTest {
         tags.add("two");
         Mockito.when(newsDao.getNewsTagsNames(anyInt())).thenReturn(new ArrayList<>());
         Mockito.when(tagDAO.getEntityByName(anyString())).thenReturn(null);
-        Mockito.when(tagMapper.toDto(any(EnumEntity.class))).thenReturn(new EnumEntityDTO("12345"));
-        Mockito.doNothing().when(tagValidator).validate(any(EnumEntityDTO.class));
-        Mockito.when(tagDAO.add(any(EnumEntity.class))).thenReturn(2);
+        Mockito.when(tagMapper.toDto(any(Tag.class))).thenReturn(new TagDTO("12345"));
+        Mockito.doNothing().when(tagValidator).validate(any(TagDTO.class));
+        Mockito.when(tagDAO.add(any(Tag.class))).thenReturn(2);
         Mockito.doNothing().when(newsDao).addNewsTag(anyInt(), anyInt());
 
         service.addNewsTags(1, tags);
@@ -248,7 +250,7 @@ public class NewsServiceTest {
         tags.add("one");
         tags.add("two");
 
-        Mockito.when(tagDAO.getEntityByName(anyString())).thenReturn(new EnumEntity());
+        Mockito.when(tagDAO.getEntityByName(anyString())).thenReturn(new Tag());
         Mockito.doNothing().when(newsDao).deleteNewsTag(anyInt(), anyInt());
 
         service.deleteNewsTags(1, tags);
@@ -273,18 +275,18 @@ public class NewsServiceTest {
     @Test
     public void getNewsTags() {
         int id = 1;
-        List<EnumEntityDTO> newsTags = new ArrayList<>();
-        newsTags.add(new EnumEntityDTO());
-        newsTags.add(new EnumEntityDTO());
+        List<TagDTO> newsTags = new ArrayList<>();
+        newsTags.add(new TagDTO());
+        newsTags.add(new TagDTO());
 
-        List<EnumEntity> newsTagsList = new ArrayList<>();
-        newsTagsList.add(new EnumEntity());
-        newsTagsList.add(new EnumEntity());
+        List<Tag> newsTagsList = new ArrayList<>();
+        newsTagsList.add(new Tag());
+        newsTagsList.add(new Tag());
 
         Mockito.when(newsDao.getNewsTags(id)).thenReturn(newsTagsList);
-        Mockito.when(tagMapper.toDto(any(EnumEntity.class))).thenReturn(new EnumEntityDTO());
+        Mockito.when(tagMapper.toDto(any(Tag.class))).thenReturn(new TagDTO());
 
-        List<EnumEntityDTO> tags = service.getNewsTags(id);
+        List<TagDTO> tags = service.getNewsTags(id);
         verify(newsDao, atMostOnce()).getNewsTagsNames(id);
         Assert.assertEquals(newsTags, tags);
     }

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import static com.epam.lab.beseda.util.ServiceConstants.*;
 
 @Configuration
-@ComponentScan({"com.epam.lab.beseda.news_management.service.validator"})
+@ComponentScan({"com.epam.lab.beseda.service.validator"})
 public class ServiceValidatorConfig {
 
     @Bean(name="nonStringValuePattern")

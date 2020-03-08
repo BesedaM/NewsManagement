@@ -1,6 +1,6 @@
 package com.epam.lab.beseda.dao.daointeface;
 
-import com.epam.lab.beseda.entity.EnumEntity;
+import com.epam.lab.beseda.entity.Role;
 import com.epam.lab.beseda.entity.User;
 
 public interface UserDAOInterface extends AbstractDAOInterface<User>{
@@ -11,6 +11,6 @@ public interface UserDAOInterface extends AbstractDAOInterface<User>{
 
     void setRole(int userId, int roleId);
 
-    EnumEntity getRole(int userId);
+    Role getRole(int userId);
 
 }

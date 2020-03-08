@@ -7,7 +7,7 @@ public class User extends BaseEntity {
     private String surname;
     private String login;
     private String password;
-    private EnumEntity role;
+    private Role role;
 
     public User() {
     }
@@ -19,7 +19,7 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public User(String name, String surname, String login, String password, EnumEntity role) {
+    public User(String name, String surname, String login, String password, Role role) {
         this.name = name;
         this.surname = surname;
         this.login = login;
@@ -51,7 +51,7 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public void setRole(EnumEntity role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -67,7 +67,7 @@ public class User extends BaseEntity {
         return login;
     }
 
-    public EnumEntity getRole() {
+    public Role getRole() {
         return role;
     }
 

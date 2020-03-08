@@ -2,8 +2,8 @@ package com.epam.lab.beseda.dao.entitydao;
 
 
 import com.epam.lab.beseda.configuration.TestConfiguration;
-import com.epam.lab.beseda.dao.daointeface.EnumEntityDAOInterface;
-import com.epam.lab.beseda.entity.EnumEntity;
+import com.epam.lab.beseda.dao.daointeface.TagDAOInterface;
+import com.epam.lab.beseda.entity.Tag;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.util.DatabaseConfigure;
 import org.junit.*;
@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -22,16 +23,16 @@ public class TagDAOTest {
 
     @Autowired
     @Qualifier("tagDao")
-    private EnumEntityDAOInterface tagDao;
+    private TagDAOInterface tagDao;
 
-    private static EnumEntity entity;
+    private static Tag entity;
 
     @Autowired
     private DatabaseConfigure dbc;
 
     @BeforeClass
     public static void initData() {
-        entity = new EnumEntity("new_news");
+        entity = new Tag("new_news");
     }
 
     @Before
@@ -46,7 +47,7 @@ public class TagDAOTest {
 
     private void simpleAdd_getEntity() throws DAOLayerException {
         int id = tagDao.add(entity);
-        EnumEntity tag = tagDao.getEntityById(id);
+        Tag tag = tagDao.getEntityById(id);
         Assert.assertEquals(entity, tag);
     }
 
@@ -54,7 +55,7 @@ public class TagDAOTest {
     @Test
     public void testAdd_01() throws DAOLayerException {
         int id01 = tagDao.add(entity);
-        int id02 = tagDao.add(new EnumEntity(entity.getName()));
+        int id02 = tagDao.add(new Tag(entity.getName()));
         Assert.assertEquals(id01, id02);
     }
 
@@ -68,10 +69,10 @@ public class TagDAOTest {
         int id = tagDao.add(entity);
         String newName = "MMM";
 
-        EnumEntity tag = tagDao.getEntityById(id);
+        Tag tag = tagDao.getEntityById(id);
         tag.setName(newName);
         tagDao.update(tag);
-        EnumEntity updatedRole = tagDao.getEntityById(id);
+        Tag updatedRole = tagDao.getEntityById(id);
         Assert.assertEquals(tag, updatedRole);
     }
 
@@ -82,7 +83,7 @@ public class TagDAOTest {
 
     @Test
     public void testGetEntityById_noSuchEntity() throws DAOLayerException {
-        EnumEntity tag = tagDao.getEntityById(1000);
+        Tag tag = tagDao.getEntityById(1000);
         Assert.assertNull(tag);
     }
 
@@ -90,20 +91,21 @@ public class TagDAOTest {
     public void testDelete() throws DAOLayerException {
         simpleAdd_getEntity();
         tagDao.delete(entity.getId());
-        EnumEntity tag = tagDao.getEntityById(entity.getId());
+        Tag tag = tagDao.getEntityById(entity.getId());
         Assert.assertNull(tag);
     }
 
     @Test
     public void testGetAll() {
-        List<EnumEntity> tags = tagDao.getAll();
+        List<Tag> tags = tagDao.getAll();
+        System.out.println(Arrays.toString(tags.toArray()));
         Assert.assertTrue(tags.size() > 3);
     }
 
     @Test
     public void testGetEntityByName() throws DAOLayerException {
         simpleAdd_getEntity();
-        EnumEntity tag = tagDao.getEntityByName(entity.getName());
+        Tag tag = tagDao.getEntityByName(entity.getName());
         Assert.assertEquals(entity, tag);
     }
 

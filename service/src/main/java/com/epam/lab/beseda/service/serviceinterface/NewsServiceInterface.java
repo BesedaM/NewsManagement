@@ -1,8 +1,8 @@
 package com.epam.lab.beseda.service.serviceinterface;
 
 import com.epam.lab.beseda.dto.AuthorDTO;
-import com.epam.lab.beseda.dto.EnumEntityDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
+import com.epam.lab.beseda.dto.TagDTO;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface NewsServiceInterface extends AbstractServiceInterface<NewsDTO>{
 
     List<String> getNewsTagsNames(int newsId);
 
-    List<EnumEntityDTO> getNewsTags(int newsId);
+    List<TagDTO> getNewsTags(int newsId);
 
     void addAuthor(int newsId, int authorId);
 

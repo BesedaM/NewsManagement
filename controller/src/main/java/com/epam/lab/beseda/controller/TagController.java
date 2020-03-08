@@ -1,6 +1,6 @@
 package com.epam.lab.beseda.controller;
 
-import com.epam.lab.beseda.dto.EnumEntityDTO;
+import com.epam.lab.beseda.dto.TagDTO;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.serviceclass.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,30 +21,26 @@ public class TagController {
     private TagService service;
 
     @GetMapping("/all")
-    public List<EnumEntityDTO> getTags() {
+    public List<TagDTO> getTags() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public EnumEntityDTO getTag(@PathVariable("id") int id) {
+    public TagDTO getTag(@PathVariable("id") int id) {
         return service.getDtoById(id);
     }
 
     @PostMapping("/")
-    public EnumEntityDTO addTag(@RequestParam("tag") String name) throws ServiceLayerException {
-        EnumEntityDTO tag = new EnumEntityDTO(name.toLowerCase());
-        this.service.add(tag);
+    public TagDTO addTag(@RequestParam("tag") String name) throws ServiceLayerException {
+        TagDTO tag = new TagDTO(name.toLowerCase());
+        service.add(tag);
         return tag;
     }
 
     @PutMapping("/")
-    public EnumEntityDTO updateTag(@RequestParam int id, @RequestParam("tag") String name) throws ServiceLayerException {
-        EnumEntityDTO tag = service.getDtoById(id);
-        if (name != null) {
-            tag.setName(name.toLowerCase());
-            service.update(tag);
-        }
-        return tag;
+    public TagDTO updateTag(@RequestParam int id, @RequestParam("tag") String name) throws ServiceLayerException {
+        TagDTO tag = new TagDTO(id, name);
+        return service.update(tag);
     }
 
     @DeleteMapping("/{id}")

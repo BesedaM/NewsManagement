@@ -2,7 +2,7 @@ package com.epam.lab.beseda.dao.entitydao;
 
 import com.epam.lab.beseda.configuration.TestConfiguration;
 import com.epam.lab.beseda.dao.daointeface.UserDAOInterface;
-import com.epam.lab.beseda.entity.EnumEntity;
+import com.epam.lab.beseda.entity.Role;
 import com.epam.lab.beseda.entity.User;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.util.DatabaseConfigure;
@@ -129,7 +129,7 @@ public class UserDAOTest {
 
         int roleId = 3;
         userDao.setRole(id, roleId);
-        EnumEntity actualRole = userDao.getRole(id);
+        Role actualRole = userDao.getRole(id);
         Assert.assertEquals(roleId, actualRole.getId());
     }
 

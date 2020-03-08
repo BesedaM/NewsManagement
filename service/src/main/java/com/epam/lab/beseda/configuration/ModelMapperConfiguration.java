@@ -1,9 +1,6 @@
 package com.epam.lab.beseda.configuration;
 
-import com.epam.lab.beseda.service.modelmapper.AuthorMapper;
-import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
-import com.epam.lab.beseda.service.modelmapper.NewsMapper;
-import com.epam.lab.beseda.service.modelmapper.UserMapper;
+import com.epam.lab.beseda.service.modelmapper.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
 @Configuration
-@ComponentScan({"com.epam.lab.beseda.news_management.service.modelmapper"})
+@ComponentScan({"com.epam.lab.beseda.service.modelmapper"})
 public class ModelMapperConfiguration {
 
     @Bean
@@ -27,9 +24,14 @@ public class ModelMapperConfiguration {
         return mapper;
     }
 
-    @Bean(name="enumEntityMapper")
-    public EnumEntityMapper getEnumEntityMapper() {
-        return new EnumEntityMapper();
+    @Bean(name="roleMapper")
+    public RoleMapper getRoleMapper() {
+        return new RoleMapper();
+    }
+
+    @Bean(name="tagMapper")
+    public TagMapper getTagMapper() {
+        return new TagMapper();
     }
 
     @Bean(name="authorMapper")

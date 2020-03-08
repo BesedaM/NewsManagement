@@ -1,8 +1,8 @@
 package com.epam.lab.beseda.exception;
 
-public class DAOLayerException extends Exception {
+public class DAOLayerException extends Exception{
+
     public DAOLayerException() {
-        super();
     }
 
     public DAOLayerException(String message) {

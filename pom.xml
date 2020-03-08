@@ -11,6 +11,7 @@
     <modules>
       <module>controller</module>
       <module>repository_jdbc</module>
+<!--      <module>repository_jpa</module>-->
       <module>service</module>
 
     </modules>
@@ -77,6 +78,36 @@
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
+    </dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>3.4.2</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.2.10</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.opentable.components/otj-pg-embedded -->
+    <dependency>
+      <groupId>com.opentable.components</groupId>
+      <artifactId>otj-pg-embedded</artifactId>
+      <version>0.13.3</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.5.4</version>
     </dependency>
 
   </dependencies>
@@ -147,7 +178,7 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.0.0-M3</version>
           <configuration>
-            <skipTests>false</skipTests>
+            <skipTests>true</skipTests>
             <includes>
               <include>**/com.epam.lab.beseda.dao.DAOTestSuite.java</include>
               <include>**/com.epam.lab.beseda.service.ModelMapperTestSuite.java</include>

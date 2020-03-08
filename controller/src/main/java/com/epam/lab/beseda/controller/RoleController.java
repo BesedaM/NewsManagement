@@ -1,6 +1,6 @@
 package com.epam.lab.beseda.controller;
 
-import com.epam.lab.beseda.dto.EnumEntityDTO;
+import com.epam.lab.beseda.dto.RoleDTO;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.serviceclass.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,30 +21,26 @@ public class RoleController {
     private RoleService service;
 
     @GetMapping("/all")
-    public List<EnumEntityDTO> getRoles() {
+    public List<RoleDTO> getRoles() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public EnumEntityDTO getRole(@PathVariable("id") int id) {
+    public RoleDTO getRole(@PathVariable("id") int id) {
         return service.getDtoById(id);
     }
 
     @PostMapping("/")
-    public EnumEntityDTO addRole(@RequestParam("role") String name) throws ServiceLayerException {
-        EnumEntityDTO role = new EnumEntityDTO(name.toLowerCase());
-        this.service.add(role);
+    public RoleDTO addRole(@RequestParam("role") String name) throws ServiceLayerException {
+        RoleDTO role = new RoleDTO(name.toLowerCase());
+        service.add(role);
         return role;
     }
 
     @PutMapping("/")
-    public EnumEntityDTO updateRole(@RequestParam int id, @RequestParam String name) throws ServiceLayerException {
-        EnumEntityDTO tag = service.getDtoById(id);
-        if (name != null) {
-            tag.setName(name.toLowerCase());
-            service.update(tag);
-        }
-        return tag;
+    public RoleDTO updateRole(@RequestParam int id, @RequestParam String name) throws ServiceLayerException {
+        RoleDTO role = new RoleDTO(id, name);
+        return service.update(role);
     }
 
     @DeleteMapping("/{id}")

@@ -2,17 +2,17 @@ package com.epam.lab.beseda.entity;
 
 import java.util.Objects;
 
-public class EnumEntity extends BaseEntity{
+public class Tag extends BaseEntity{
     private String name;
 
-    public EnumEntity() {
+    public Tag() {
     }
 
-    public EnumEntity(String name) {
+    public Tag(String name) {
         this.name = name;
     }
 
-    public EnumEntity(int id, String name) {
+    public Tag(int id, String name) {
         super(id);
         this.name = name;
     }
@@ -28,9 +28,9 @@ public class EnumEntity extends BaseEntity{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EnumEntity)) return false;
+        if (!(o instanceof Tag)) return false;
         if (!super.equals(o)) return false;
-        EnumEntity that = (EnumEntity) o;
+        Tag that = (Tag) o;
         return Objects.equals(name, that.name);
     }
 

@@ -26,8 +26,6 @@ public abstract class AbstractDAO<E extends BaseEntity> implements AbstractDAOIn
 
     protected ResultSetExtractor<E> rsExtractor;
 
-    protected Object[] entityParam;
-
 
     protected AbstractDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

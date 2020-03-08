@@ -2,8 +2,8 @@ package com.epam.lab.beseda.dao.entitydao;
 
 import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
 import com.epam.lab.beseda.entity.Author;
-import com.epam.lab.beseda.entity.EnumEntity;
 import com.epam.lab.beseda.entity.News;
+import com.epam.lab.beseda.entity.Tag;
 import com.epam.lab.beseda.exception.ParameterNotExistsException;
 import com.epam.lab.beseda.util.DBConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ public class NewsDAO extends AbstractDAO<News> implements NewsDAOInterface {
     }
 
     @Autowired
-    @Qualifier("enumEntityRowMapper")
-    private RowMapper<EnumEntity> enumEntityRowMapper;
+    @Qualifier("tagRowMapper")
+    private RowMapper<Tag> tagRowMapper;
 
     @Autowired
     @Qualifier("newsRowMapper")
@@ -106,8 +106,8 @@ public class NewsDAO extends AbstractDAO<News> implements NewsDAOInterface {
     }
 
     @Override
-    public List<EnumEntity> getNewsTags(int newsId) {
-        return jdbcTemplate.query(NEWS_TAG_GET_TAGS, new Object[]{newsId}, enumEntityRowMapper);
+    public List<Tag> getNewsTags(int newsId) {
+        return jdbcTemplate.query(NEWS_TAG_GET_TAGS, new Object[]{newsId}, tagRowMapper);
     }
 
     @Override

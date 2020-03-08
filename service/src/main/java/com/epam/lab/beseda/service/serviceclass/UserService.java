@@ -1,24 +1,23 @@
 package com.epam.lab.beseda.service.serviceclass;
 
-import com.epam.lab.beseda.dao.entitydao.UserDAO;
 import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
-import com.epam.lab.beseda.dao.daointeface.EnumEntityDAOInterface;
+import com.epam.lab.beseda.dao.daointeface.RoleDAOInterface;
 import com.epam.lab.beseda.dao.daointeface.UserDAOInterface;
-import com.epam.lab.beseda.dto.EnumEntityDTO;
+import com.epam.lab.beseda.dao.entitydao.UserDAO;
+import com.epam.lab.beseda.dto.RoleDTO;
 import com.epam.lab.beseda.dto.UserDTO;
-import com.epam.lab.beseda.entity.EnumEntity;
+import com.epam.lab.beseda.entity.Role;
 import com.epam.lab.beseda.entity.User;
 import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.exception.EntityExistsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
-import com.epam.lab.beseda.service.modelmapper.EnumEntityMapper;
 import com.epam.lab.beseda.service.modelmapper.Mapper;
+import com.epam.lab.beseda.service.modelmapper.RoleMapper;
 import com.epam.lab.beseda.service.modelmapper.UserMapper;
 import com.epam.lab.beseda.service.serviceinterface.UserServiceInterface;
 import com.epam.lab.beseda.service.validator.UserValidator;
 import com.epam.lab.beseda.service.validator.Validatable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,23 +28,21 @@ import static com.epam.lab.beseda.util.ServiceConstants.USER_WITH_LOGIN_EXISTS;
 public class UserService extends AbstractService<User, UserDTO> implements UserServiceInterface {
 
     @Autowired
-    @Qualifier("enumEntityMapper")
-    private EnumEntityMapper enumEntityMapper;
+    private RoleMapper roleMapper;
 
     @Autowired
-    @Qualifier("roleDao")
-    private EnumEntityDAOInterface roleDAO;
+    private RoleDAOInterface roleDAO;
 
 
     public UserService() {
         super();
     }
 
-    public UserService(UserDAOInterface userDAO, EnumEntityDAOInterface roleDAO, UserValidator validator, UserMapper mapper,
-                       EnumEntityMapper enumEntityMapper) {
+    public UserService(UserDAOInterface userDAO, RoleDAOInterface roleDAO, UserValidator validator, UserMapper mapper,
+                       RoleMapper roleMapper) {
         super(userDAO, validator, mapper);
         this.roleDAO = roleDAO;
-        this.enumEntityMapper = enumEntityMapper;
+        this.roleMapper = roleMapper;
     }
 
     @Autowired
@@ -56,14 +53,12 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
 
 
     @Autowired
-    @Qualifier("userValidator")
     @Override
     protected void setValidator(Validatable<UserDTO> validator) {
         this.validator = validator;
     }
 
     @Autowired
-    @Qualifier("userMapper")
     @Override
     protected void setMapper(Mapper<User, UserDTO> mapper) {
         this.mapper = mapper;
@@ -74,7 +69,7 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
         List<UserDTO> userDTOList = super.getAll();
         for (UserDTO userDTO :
                 userDTOList) {
-            EnumEntityDTO enumEntityDTO = this.getRole(userDTO.getId());
+            RoleDTO enumEntityDTO = this.getRole(userDTO.getId());
             userDTO.setRole(enumEntityDTO.getName());
         }
         return userDTOList;
@@ -84,7 +79,7 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
     public UserDTO getDtoById(int id) {
         UserDTO userDTO = super.getDtoById(id);
         if (userDTO != null) {
-            EnumEntityDTO enumEntityDTO = this.getRole(userDTO.getId());
+            RoleDTO enumEntityDTO = this.getRole(userDTO.getId());
             userDTO.setRole(enumEntityDTO.getName());
         }
         return userDTO;
@@ -92,11 +87,12 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
 
     @Override
     public void add(UserDTO dto) throws ServiceLayerException {
+        validator.validate(dto);
         if (((UserDAO) dao).getUserByLogin(dto.getLogin()) == null) {
             super.add(dto);
-            EnumEntity enumEntity = roleDAO.getEntityByName(dto.getRole());
-            if(enumEntity==null){
-                enumEntity=new EnumEntity(dto.getRole());
+            Role enumEntity = roleDAO.getEntityByName(dto.getRole());
+            if (enumEntity == null) {
+                enumEntity = new Role(dto.getRole());
                 try {
                     roleDAO.add(enumEntity);
                 } catch (DAOLayerException e) {
@@ -110,10 +106,31 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
     }
 
     @Override
-    public void update(UserDTO dto) throws ServiceLayerException {
-        super.update(dto);
-        EnumEntity enumEntity = roleDAO.getEntityByName(dto.getRole());
-        ((UserDAO) dao).setRole(dto.getId(), enumEntity.getId());
+    public UserDTO update(UserDTO dto) throws ServiceLayerException {
+
+        User oldUser = dao.getEntityById(dto.getId());
+        if (oldUser != null) {
+            if (dto.getName() == null) {
+                dto.setName(oldUser.getName());
+            }
+            if (dto.getSurname() == null) {
+                dto.setSurname(oldUser.getSurname());
+            }
+            if (dto.getLogin() == null) {
+                dto.setLogin(oldUser.getLogin());
+            }
+            if (dto.getPassword() == null) {
+                dto.setPassword(oldUser.getPassword());
+            }
+            if (dto.getRole() != null) {
+                Role role = roleDAO.getEntityByName(dto.getRole());
+                ((UserDAO) dao).setRole(dto.getId(), role.getId());
+            }
+            super.update(dto);
+        } else {
+            dto = null;
+        }
+        return dto;
     }
 
     @Override
@@ -121,7 +138,7 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
         User user = ((UserDAO) dao).getUserByLoginAndPassword(login, password);
         UserDTO userDTO = mapper.toDto(user);
         if (userDTO != null) {
-            EnumEntity role = ((UserDAO) dao).getRole(user.getId());
+            Role role = ((UserDAO) dao).getRole(user.getId());
             userDTO.setRole(role.getName());
         }
         return userDTO;
@@ -132,7 +149,7 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
         User user = ((UserDAO) dao).getUserByLogin(login);
         UserDTO userDTO = mapper.toDto(user);
         if (userDTO != null) {
-            EnumEntity role = ((UserDAO) dao).getRole(user.getId());
+            Role role = ((UserDAO) dao).getRole(user.getId());
             userDTO.setRole(role.getName());
         }
         return userDTO;
@@ -144,8 +161,8 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
     }
 
     @Override
-    public EnumEntityDTO getRole(int userId) {
-        EnumEntity role = ((UserDAO) dao).getRole(userId);
-        return enumEntityMapper.toDto(role);
+    public RoleDTO getRole(int userId) {
+        Role role = ((UserDAO) dao).getRole(userId);
+        return roleMapper.toDto(role);
     }
 }

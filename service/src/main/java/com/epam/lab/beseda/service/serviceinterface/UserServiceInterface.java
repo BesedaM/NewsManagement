@@ -1,6 +1,6 @@
 package com.epam.lab.beseda.service.serviceinterface;
 
-import com.epam.lab.beseda.dto.EnumEntityDTO;
+import com.epam.lab.beseda.dto.RoleDTO;
 import com.epam.lab.beseda.dto.UserDTO;
 
 public interface UserServiceInterface extends AbstractServiceInterface<UserDTO>{
@@ -11,7 +11,7 @@ public interface UserServiceInterface extends AbstractServiceInterface<UserDTO>{
 
     void setRole(int userId, int roleId);
 
-    EnumEntityDTO getRole(int userId);
+    RoleDTO getRole(int userId);
 
 
 }

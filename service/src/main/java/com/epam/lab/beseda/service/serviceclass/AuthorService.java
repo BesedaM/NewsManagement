@@ -1,9 +1,9 @@
 package com.epam.lab.beseda.service.serviceclass;
 
-import com.epam.lab.beseda.dao.entitydao.AuthorDAO;
 import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
 import com.epam.lab.beseda.dao.daointeface.AuthorDAOInterface;
 import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
+import com.epam.lab.beseda.dao.entitydao.AuthorDAO;
 import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
 import com.epam.lab.beseda.entity.Author;
@@ -32,7 +32,6 @@ public class AuthorService extends AbstractService<Author, AuthorDTO> implements
     @Qualifier("newsMapper")
     private NewsMapper newsMapper;
 
-
     public AuthorService() {
         super();
     }
@@ -42,8 +41,6 @@ public class AuthorService extends AbstractService<Author, AuthorDTO> implements
         this.newsDao = newsDao;
         this.newsMapper = newsMapper;
     }
-
-
 
     @Autowired
     @Override
@@ -58,7 +55,6 @@ public class AuthorService extends AbstractService<Author, AuthorDTO> implements
         this.validator = validator;
     }
 
-
     @Autowired
     @Qualifier("authorMapper")
     @Override
@@ -68,6 +64,7 @@ public class AuthorService extends AbstractService<Author, AuthorDTO> implements
 
     @Override
     public void add(AuthorDTO dto) throws ServiceLayerException {
+        validator.validate(dto);
         super.add(dto);
     }
 
@@ -83,9 +80,29 @@ public class AuthorService extends AbstractService<Author, AuthorDTO> implements
     @Override
     public AuthorDTO getDtoById(int id) {
         AuthorDTO authorDTO = super.getDtoById(id);
-        authorDTO.setNewsList(this.getNews(id));
+        if (authorDTO != null) {
+            authorDTO.setNewsList(this.getNews(id));
+        }
         return authorDTO;
     }
+
+    @Override
+    public AuthorDTO update(AuthorDTO dto) throws ServiceLayerException {
+        Author oldEntity = dao.getEntityById(dto.getId());
+        if (oldEntity != null) {
+            if (dto.getName() == null) {
+                dto.setName(oldEntity.getName());
+            }
+            if (dto.getSurname() == null) {
+                dto.setSurname(oldEntity.getSurname());
+            }
+            super.update(dto);
+        } else {
+            dto = null;
+        }
+        return dto;
+    }
+
 
     public List<NewsDTO> getNews(int authorId) {
         List<Integer> newsId = ((AuthorDAO) dao).getNewsId(authorId);

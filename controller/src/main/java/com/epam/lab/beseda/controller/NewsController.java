@@ -44,37 +44,15 @@ public class NewsController {
     }
 
     @PostMapping("/")
-    public NewsDTO addNews(@RequestBody NewsDTO newsDTO) throws ServiceLayerException, NotEnoughArgumentsException {
-        if (newsDTO.getAuthor() == null
-                || newsDTO.getTitle() == null
-                || newsDTO.getShortText() == null
-                || newsDTO.getFullText() == null) {
-            throw new NotEnoughArgumentsException(NEWS_DATA_REQUIRED);
-        }
-        newsDTO.setCreationDate(LocalDate.now());
-        newsDTO.setModificationDate(LocalDate.now());
-        this.service.add(newsDTO);
+    public NewsDTO addNews(@RequestBody NewsDTO newsDTO) throws ServiceLayerException {
+        service.add(newsDTO);
         return newsDTO;
     }
 
     @PutMapping("/{id}")
     public NewsDTO updateNews(@PathVariable("id") int id, @RequestBody NewsDTO news) throws ServiceLayerException {
-        NewsDTO newsDTO = service.getDtoById(id);
-        if (news.getTitle() != null) {
-            newsDTO.setTitle(news.getTitle());
-        }
-        if (news.getShortText() != null) {
-            newsDTO.setShortText(news.getShortText());
-        }
-        if (news.getFullText() != null) {
-            newsDTO.setFullText(news.getFullText());
-        }
-        if (news.getAuthor() != null) {
-            newsDTO.setAuthor(news.getAuthor());
-        }
-        newsDTO.setModificationDate(LocalDate.now());
-        service.update(newsDTO);
-        return newsDTO;
+        news.setId(id);
+        return service.update(news);
     }
 
 
@@ -84,25 +62,13 @@ public class NewsController {
     }
 
     @GetMapping("/search/author")
-    public List<NewsDTO> findNewsByAuthor(@RequestBody AuthorDTO authorDTO) throws NotEnoughArgumentsException {
-        List<NewsDTO> newsDTOList = null;
-        if (authorDTO.getName() != null && authorDTO.getSurname() != null) {
-            newsDTOList = searchByAuthorCriteria.findByAuthor(authorDTO);
-        } else {
-            throw new NotEnoughArgumentsException(FULL_AUTHOR_DATA_REQUIRED);
-        }
-        return newsDTOList;
+    public List<NewsDTO> findNewsByAuthor(@RequestBody AuthorDTO authorDTO) {
+        return searchByAuthorCriteria.findByAuthor(authorDTO);
     }
 
     @GetMapping("/search/tags")
-    public List<NewsDTO> findNewsByTags(@RequestBody List<String> tags) throws NotEnoughArgumentsException {
-        List<NewsDTO> newsDTOList = null;
-        if (tags != null && tags.size() > 0) {
-            newsDTOList = searchByTagsCriteria.findByTagList(tags);
-        } else {
-            throw new NotEnoughArgumentsException(TAGS_LIST_REQUIRED);
-        }
-        return newsDTOList;
+    public List<NewsDTO> findNewsByTags(@RequestBody List<String> tags) {
+        return searchByTagsCriteria.findByTagList(tags);
     }
 
     @PutMapping("/{id}/tags/")
@@ -112,7 +78,7 @@ public class NewsController {
     }
 
     @DeleteMapping("/{id}/tags/")
-    public NewsDTO deleteNewsTags(@PathVariable int id, @RequestBody List<String> tags) throws ServiceLayerException {
+    public NewsDTO deleteNewsTags(@PathVariable int id, @RequestBody List<String> tags) {
         service.deleteNewsTags(id, tags);
         return service.getDtoById(id);
     }

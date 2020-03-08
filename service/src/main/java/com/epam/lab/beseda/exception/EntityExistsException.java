@@ -1,6 +1,6 @@
 package com.epam.lab.beseda.exception;
 
-public class EntityExistsException extends ServiceLayerException{
+public class EntityExistsException extends ServiceLayerException {
 
     public EntityExistsException() {
         super();
