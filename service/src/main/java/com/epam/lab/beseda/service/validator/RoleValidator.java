@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Pattern;
 
 import static com.epam.lab.beseda.util.DBEntityTable.NAME;
+import static com.epam.lab.beseda.util.FieldsLimitations.MAX_ENUM_VALUE_LENGTH;
+import static com.epam.lab.beseda.util.FieldsLimitations.MIN_ENUM_VALUE_LENGTH;
 import static com.epam.lab.beseda.util.ServiceConstants.*;
 
 @Component

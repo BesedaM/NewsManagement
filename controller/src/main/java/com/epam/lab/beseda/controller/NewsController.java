@@ -2,10 +2,12 @@ package com.epam.lab.beseda.controller;
 
 import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
+import com.epam.lab.beseda.entity.News;
 import com.epam.lab.beseda.exception.NotEnoughArgumentsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.search.NewsSearchByAuthorCriteria;
 import com.epam.lab.beseda.service.search.NewsSearchByTagsCriteria;
+import com.epam.lab.beseda.service.serviceclass.AbstractService;
 import com.epam.lab.beseda.service.serviceclass.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +19,7 @@ import static com.epam.lab.beseda.util.ControllerMessage.*;
 
 @RestController
 @RequestMapping("/news/")
-public class NewsController {
-
-    @Autowired
-    private NewsService service;
+public class NewsController extends AbstractController<News, NewsDTO> {
 
     @Autowired
     private NewsSearchByAuthorCriteria searchByAuthorCriteria;
@@ -28,37 +27,20 @@ public class NewsController {
     @Autowired
     private NewsSearchByTagsCriteria searchByTagsCriteria;
 
+    @Autowired
+    @Override
+    protected void setService(AbstractService<News, NewsDTO> service) {
+        this.service = service;
+    }
+
     @GetMapping("/count")
     public int getNewsNumber() {
-        return service.getNewsNumber();
+        return ((NewsService) service).getNewsNumber();
     }
-
-    @GetMapping("/all")
-    public List<NewsDTO> getAllNews() {
-        return service.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public NewsDTO getNews(@PathVariable("id") int id) {
-        return service.getDtoById(id);
-    }
-
-    @PostMapping("/")
-    public NewsDTO addNews(@RequestBody NewsDTO newsDTO) throws ServiceLayerException {
-        service.add(newsDTO);
-        return newsDTO;
-    }
-
-    @PutMapping("/{id}")
-    public NewsDTO updateNews(@PathVariable("id") int id, @RequestBody NewsDTO news) throws ServiceLayerException {
-        news.setId(id);
-        return service.update(news);
-    }
-
 
     @GetMapping("/sort/{sortParam}")
     public List<NewsDTO> getAllNewsSortedByParameter(@PathVariable("sortParam") String param) throws ServiceLayerException {
-        return service.getAllSorted(param);
+        return ((NewsService) service).getAllSorted(param);
     }
 
     @GetMapping("/search/author")
@@ -73,20 +55,14 @@ public class NewsController {
 
     @PutMapping("/{id}/tags/")
     public NewsDTO addNewsTags(@PathVariable int id, @RequestBody List<String> tags) throws ServiceLayerException {
-        service.addNewsTags(id, tags);
+        ((NewsService) service).addNewsTags(id, tags);
         return service.getDtoById(id);
     }
 
     @DeleteMapping("/{id}/tags/")
     public NewsDTO deleteNewsTags(@PathVariable int id, @RequestBody List<String> tags) {
-        service.deleteNewsTags(id, tags);
+        ((NewsService) service).deleteNewsTags(id, tags);
         return service.getDtoById(id);
     }
 
-
-    @DeleteMapping("/{id}")
-    public String deleteNews(@PathVariable("id") int id) {
-        service.delete(id);
-        return NEWS_WITH_ID + id + IS_DELETED;
-    }
 }

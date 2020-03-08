@@ -36,10 +36,6 @@ public class DBConstants {
         SPACE_SYMBOL = "\\s";
         AUTHOR_ID = "author_id";
 
-//        AUTHOR = "author";
-//        DATE = "date";
-//        TAG = "tag";
-
         ZERO_VALUE = 0;
         MILLISECONDS_IN_SECOND = 1000;
         SECONDS_IN_MINUTE = 60;

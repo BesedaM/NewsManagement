@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import static com.epam.lab.beseda.util.DBEntityTable.NAME;
 import static com.epam.lab.beseda.util.DBEntityTable.SURNAME;
+import static com.epam.lab.beseda.util.FieldsLimitations.*;
 import static com.epam.lab.beseda.util.ServiceConstants.*;
 
 @Component

@@ -11,7 +11,9 @@ import com.epam.lab.beseda.dto.TagDTO;
 import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.entity.News;
 import com.epam.lab.beseda.entity.Tag;
-import com.epam.lab.beseda.exception.*;
+import com.epam.lab.beseda.exception.DAOLayerException;
+import com.epam.lab.beseda.exception.ParameterNotExistsException;
+import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.modelmapper.AuthorMapper;
 import com.epam.lab.beseda.service.modelmapper.Mapper;
 import com.epam.lab.beseda.service.modelmapper.NewsMapper;
@@ -29,8 +31,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static com.epam.lab.beseda.util.FullDataRequiredMessage.NEWS_DATA_REQUIRED;
 
 @Service
 public class NewsService extends AbstractService<News, NewsDTO> implements NewsServiceInterface {

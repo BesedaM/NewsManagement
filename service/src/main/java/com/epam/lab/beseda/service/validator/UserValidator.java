@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Pattern;
 
 import static com.epam.lab.beseda.util.DBEntityTable.*;
+import static com.epam.lab.beseda.util.FieldsLimitations.*;
 import static com.epam.lab.beseda.util.ServiceConstants.*;
 
 @Component

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 import static com.epam.lab.beseda.util.DBEntityTable.*;
-import static com.epam.lab.beseda.util.ServiceConstants.*;
+import static com.epam.lab.beseda.util.FieldsLimitations.*;
 
 @Component
 public class NewsValidator implements Validatable<NewsDTO> {
