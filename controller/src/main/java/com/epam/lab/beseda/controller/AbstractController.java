@@ -31,13 +31,14 @@ public abstract class AbstractController<E extends BaseEntity, D extends BaseDTO
     @PostMapping("/")
     public D addDto(@RequestBody D dto) throws ServiceLayerException {
         service.add(dto);
-        return dto;
+        return service.getDtoById(dto.getId());
     }
 
     @PutMapping("/{id}")
     public D updateDto(@PathVariable("id") int id, @RequestBody D dto) throws ServiceLayerException {
         dto.setId(id);
-        return service.update(dto);
+        service.update(dto);
+        return service.getDtoById(id);
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.epam.lab.beseda.service.search;
 
+import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
 import com.epam.lab.beseda.dao.entitydao.NewsDAO;
 import com.epam.lab.beseda.service.modelmapper.NewsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 public abstract class NewsSearchCriteria {
 
     @Autowired
-    protected NewsDAO dao;
+    protected NewsDAOInterface dao;
 
     @Autowired
     @Qualifier("newsMapper")

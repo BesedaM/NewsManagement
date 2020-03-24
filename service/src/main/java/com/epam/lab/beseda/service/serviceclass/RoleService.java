@@ -4,7 +4,6 @@ import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
 import com.epam.lab.beseda.dao.entitydao.RoleDAO;
 import com.epam.lab.beseda.dto.RoleDTO;
 import com.epam.lab.beseda.entity.Role;
-import com.epam.lab.beseda.exception.NoSuchEntityException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.modelmapper.Mapper;
 import com.epam.lab.beseda.service.modelmapper.RoleMapper;
@@ -41,11 +40,6 @@ public class RoleService extends AbstractService<Role, RoleDTO> implements RoleS
         this.mapper = mapper;
     }
 
-    @Override
-    public void add(RoleDTO dto) throws ServiceLayerException {
-        validator.validate(dto);
-        super.add(dto);
-    }
 
     @Override
     public RoleDTO update(RoleDTO dto) throws ServiceLayerException {

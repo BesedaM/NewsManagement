@@ -12,13 +12,10 @@ public class NewsSearchByTagsCriteria extends NewsSearchCriteria {
 
     public List<NewsDTO> findByTagList(List<String> tags) {
         List<NewsDTO> newsDTOList = new ArrayList<>();
-        if (tags != null
-                && tags.size() > 0) {
-            List<News> newsList = dao.getAll();
-            for (News nn : newsList) {
-                if (nn.getTags().containsAll(tags)) {
-                    newsDTOList.add(mapper.toDto(nn));
-                }
+        if (tags != null && tags.size() > 0) {
+            List<News> newsList = dao.findByTagsList(tags);
+            for (News news : newsList) {
+                newsDTOList.add(mapper.toDto(news));
             }
         }
         return newsDTOList;

@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NewsManagement.iml" filepath="$PROJECT_DIR$/NewsManagement.iml" />
       <module fileurl="file://$PROJECT_DIR$/controller/controller.iml" filepath="$PROJECT_DIR$/controller/controller.iml" />
-      <module fileurl="file://$PROJECT_DIR$/repository_jdbc/repository_jdbc.iml" filepath="$PROJECT_DIR$/repository_jdbc/repository_jdbc.iml" />
       <module fileurl="file://$PROJECT_DIR$/repository_jpa/repository_jpa.iml" filepath="$PROJECT_DIR$/repository_jpa/repository_jpa.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" />
     </modules>

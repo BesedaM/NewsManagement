@@ -3,7 +3,6 @@ package com.epam.lab.beseda.service.serviceclass;
 import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
 import com.epam.lab.beseda.dto.BaseDTO;
 import com.epam.lab.beseda.entity.BaseEntity;
-import com.epam.lab.beseda.exception.DAOLayerException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.modelmapper.Mapper;
 import com.epam.lab.beseda.service.serviceinterface.AbstractServiceInterface;
@@ -56,22 +55,15 @@ public abstract class AbstractService<K extends BaseEntity, D extends BaseDTO> i
 
     @Override
     public void add(D dto) throws ServiceLayerException {
-        try {
-            int id = dao.add(mapper.toEntity(dto));
-            dto.setId(id);
-        } catch (DAOLayerException e) {
-            throw new ServiceLayerException(e);
-        }
+        validator.validate(dto);
+        int id = dao.add(mapper.toEntity(dto));
+        dto.setId(id);
     }
 
     @Override
     public D update(D dto) throws ServiceLayerException {
         validator.validate(dto);
-        try {
-            dao.update(mapper.toEntity(dto));
-        } catch (DAOLayerException e) {
-            throw new ServiceLayerException(e);
-        }
+        dao.update(mapper.toEntity(dto));
         return dto;
     }
 

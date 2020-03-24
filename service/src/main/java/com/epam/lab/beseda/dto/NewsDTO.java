@@ -3,18 +3,19 @@ package com.epam.lab.beseda.dto;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
-public class NewsDTO extends BaseDTO implements Comparable<NewsDTO> {
+public class NewsDTO extends BaseDTO {
 
     private AuthorDTO author;
 
     private String title;
-    private String shortText;
-    private String fullText;
-    private LocalDate creationDate;
-    private LocalDate modificationDate;
+    private String short_text;
+    private String full_text;
+    private LocalDate creation_date;
+    private LocalDate modification_date;
 
-    private Set<String> tags = new HashSet<>();
+    private TreeSet<String> tags = new TreeSet<>();
 
     public NewsDTO() {
     }
@@ -22,8 +23,8 @@ public class NewsDTO extends BaseDTO implements Comparable<NewsDTO> {
     public NewsDTO(AuthorDTO author, String title, String shortText, String fullText) {
         this.author = author;
         this.title = title;
-        this.shortText = shortText;
-        this.fullText = fullText;
+        this.short_text = shortText;
+        this.full_text = fullText;
     }
 
     public AuthorDTO getAuthor() {
@@ -42,40 +43,40 @@ public class NewsDTO extends BaseDTO implements Comparable<NewsDTO> {
         this.title = title;
     }
 
-    public String getShortText() {
-        return shortText;
+    public String getShort_text() {
+        return short_text;
     }
 
-    public void setShortText(String shortText) {
-        this.shortText = shortText;
+    public void setShort_text(String short_text) {
+        this.short_text = short_text;
     }
 
-    public String getFullText() {
-        return fullText;
+    public String getFull_text() {
+        return full_text;
     }
 
-    public void setFullText(String fullText) {
-        this.fullText = fullText;
+    public void setFull_text(String full_text) {
+        this.full_text = full_text;
     }
 
-    public void setTags(Set<String> tags) {
+    public void setTags(TreeSet<String> tags) {
         this.tags = tags;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
+    public LocalDate getCreation_date() {
+        return creation_date;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
+    public void setCreation_date(LocalDate creation_date) {
+        this.creation_date = creation_date;
     }
 
-    public LocalDate getModificationDate() {
-        return modificationDate;
+    public LocalDate getModification_date() {
+        return modification_date;
     }
 
-    public void setModificationDate(LocalDate modificationDate) {
-        this.modificationDate = modificationDate;
+    public void setModification_date(LocalDate modification_date) {
+        this.modification_date = modification_date;
     }
 
     public void addTag(String tag) {
@@ -88,10 +89,5 @@ public class NewsDTO extends BaseDTO implements Comparable<NewsDTO> {
 
     public Set<String> getTags() {
         return tags;
-    }
-
-    @Override
-    public int compareTo(NewsDTO newsDTO) {
-        return this.id - newsDTO.getId();
     }
 }

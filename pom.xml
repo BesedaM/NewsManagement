@@ -10,8 +10,7 @@
 
     <modules>
       <module>controller</module>
-      <module>repository_jdbc</module>
-<!--      <module>repository_jpa</module>-->
+      <module>repository_jpa</module>
       <module>service</module>
 
     </modules>
@@ -65,6 +64,14 @@
       <artifactId>log4j-core</artifactId>
       <version>2.13.0</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.13.1</version>
+    </dependency>
+
 
     <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
     <dependency>

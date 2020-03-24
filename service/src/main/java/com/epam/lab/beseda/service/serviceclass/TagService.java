@@ -5,7 +5,6 @@ import com.epam.lab.beseda.dao.daointeface.TagDAOInterface;
 import com.epam.lab.beseda.dao.entitydao.TagDAO;
 import com.epam.lab.beseda.dto.TagDTO;
 import com.epam.lab.beseda.entity.Tag;
-import com.epam.lab.beseda.exception.NoSuchEntityException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.modelmapper.Mapper;
 import com.epam.lab.beseda.service.modelmapper.TagMapper;
@@ -43,12 +42,6 @@ public class TagService extends AbstractService<Tag, TagDTO> implements TagServi
     }
 
     @Override
-    public void add(TagDTO dto) throws ServiceLayerException {
-        validator.validate(dto);
-        super.add(dto);
-    }
-
-    @Override
     public TagDTO update(TagDTO dto) throws ServiceLayerException {
         Tag tag = dao.getEntityById(dto.getId());
         if (tag != null) {
@@ -63,7 +56,7 @@ public class TagService extends AbstractService<Tag, TagDTO> implements TagServi
 
     @Override
     public TagDTO getEntityByName(String name) {
-        Tag enumEntity = ((TagDAO) dao).getEntityByName(name.toLowerCase());
-        return mapper.toDto(enumEntity);
+        Tag tag = ((TagDAO) dao).getEntityByName(name.toLowerCase());
+        return mapper.toDto(tag);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@Import({DAOConfiguration.class, ServiceConfiguration.class})
+@Import({JPAConfiguration.class, ServiceConfiguration.class})
 @ComponentScan("com.epam.lab.beseda.controller")
 public class WebMWCConfig implements WebMvcConfigurer {
 

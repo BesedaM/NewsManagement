@@ -20,7 +20,7 @@
         </Appender>
 
         <Appender type="File" name="FILE_DEBUG_LOGGER" fileName="${basePath}/news_management_debug.log">
-            <Layout type="PatternLayout" pattern="%d %p %C{1.} [%t] %m%n"/>
+            <Layout type="PatternLayout" pattern="%d %p %m%n"/>
         </Appender>
 
     </Appenders>

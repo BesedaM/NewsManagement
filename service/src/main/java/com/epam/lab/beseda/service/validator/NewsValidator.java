@@ -34,9 +34,9 @@ public class NewsValidator implements Validatable<NewsDTO> {
             throw new NullValueException();
         } else if (entity.getTitle() == null) {
             throw new NullValueException(TITLE);
-        } else if (entity.getShortText() == null) {
+        } else if (entity.getShort_text() == null) {
             throw new NullValueException(SHORT_TEXT);
-        } else if (entity.getFullText() == null) {
+        } else if (entity.getFull_text() == null) {
             throw new NullValueException(FULL_TEXT);
         }
     }
@@ -46,9 +46,9 @@ public class NewsValidator implements Validatable<NewsDTO> {
         if (entity.getTitle().length() < MIN_TITLE_LENGTH
                 || entity.getTitle().length() > MAX_TITLE_LENGTH) {
             throw new IrregularLengthException(TITLE, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH);
-        } else if (entity.getShortText().length() > MAX_SHORT_TEXT_LENGTH) {
+        } else if (entity.getShort_text().length() > MAX_SHORT_TEXT_LENGTH) {
             throw new IrregularLengthException(SHORT_TEXT, MAX_SHORT_TEXT_LENGTH);
-        } else if (entity.getFullText().length() > MAX_FULL_TEXT_LENGTH) {
+        } else if (entity.getFull_text().length() > MAX_FULL_TEXT_LENGTH) {
             throw new IrregularLengthException(FULL_TEXT, MAX_FULL_TEXT_LENGTH);
         }
     }

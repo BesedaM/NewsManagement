@@ -15,8 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.TreeSet;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {ServiceValidatorConfig.class})
@@ -124,7 +123,7 @@ public class NewsValidatorTest {
     @Test(expected = ValidationException.class)
     public void testValidateTags_tooSmall() throws ValidationException {
         String text = RandomString.make(100);
-        Set<String> tags = new HashSet<>();
+        TreeSet<String> tags = new TreeSet<>();
         tags.add("1233");
         tags.add("tt");
         NewsDTO news = new NewsDTO(authorDTO, "Title", "short text", text);
@@ -136,7 +135,7 @@ public class NewsValidatorTest {
     public void testValidateTags_tooBig() throws ValidationException {
         String text = RandomString.make(100);
         String bigTag = RandomString.make(21);
-        Set<String> tags = new HashSet<>();
+        TreeSet<String> tags = new TreeSet<>();
         tags.add("1233");
         tags.add(bigTag);
         NewsDTO news = new NewsDTO(authorDTO, "Title", "short text", text);
