@@ -1,4 +1,4 @@
-NewsManagement project
+<h2>NewsManagement project</h2>
 
 Проект выполнен на Spring Framework
 Согласно заданию проект разбит на 3 модуля:
