@@ -7,5 +7,4 @@ public interface UserServiceInterface extends AbstractServiceInterface<UserDTO>{
     UserDTO getUserByLoginAndPassword(String login, String password);
 
     UserDTO getUserByLogin(String login);
-
 }

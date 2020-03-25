@@ -2,12 +2,10 @@ package com.epam.lab.beseda.service.serviceclass;
 
 import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
 import com.epam.lab.beseda.dao.daointeface.AuthorDAOInterface;
-import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
 import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.entity.Author;
 import com.epam.lab.beseda.service.modelmapper.AuthorMapper;
 import com.epam.lab.beseda.service.modelmapper.Mapper;
-import com.epam.lab.beseda.service.modelmapper.NewsMapper;
 import com.epam.lab.beseda.service.serviceinterface.AuthorServiceInterface;
 import com.epam.lab.beseda.service.validator.AuthorValidator;
 import com.epam.lab.beseda.service.validator.Validatable;
@@ -18,21 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthorService extends AbstractService<Author, AuthorDTO> implements AuthorServiceInterface {
 
-    @Autowired
-    private NewsDAOInterface newsDao;
-
-    @Autowired
-    @Qualifier("newsMapper")
-    private NewsMapper newsMapper;
-
     public AuthorService() {
         super();
     }
 
-    public AuthorService(AuthorDAOInterface authorDAO, NewsDAOInterface newsDao, AuthorValidator validator, AuthorMapper mapper, NewsMapper newsMapper) {
+    public AuthorService(AuthorDAOInterface authorDAO, AuthorValidator validator, AuthorMapper mapper) {
         super(authorDAO, validator, mapper);
-        this.newsDao = newsDao;
-        this.newsMapper = newsMapper;
     }
 
     @Autowired

@@ -17,8 +17,6 @@ public interface NewsDAOInterface extends AbstractDAOInterface<News>{
 
     void deleteNewsTag(int newsId, int tagId);
 
-//    List<String> getNewsTagsNames(int newsId);
-
     List<News> findByTagsList(List<String> tagsNames);
 
     int getNewsNumber();

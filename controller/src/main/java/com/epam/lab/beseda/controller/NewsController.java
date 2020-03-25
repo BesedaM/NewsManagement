@@ -3,7 +3,6 @@ package com.epam.lab.beseda.controller;
 import com.epam.lab.beseda.dto.AuthorDTO;
 import com.epam.lab.beseda.dto.NewsDTO;
 import com.epam.lab.beseda.entity.News;
-import com.epam.lab.beseda.exception.NotEnoughArgumentsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.search.NewsSearchByAuthorCriteria;
 import com.epam.lab.beseda.service.search.NewsSearchByTagsCriteria;
@@ -12,10 +11,7 @@ import com.epam.lab.beseda.service.serviceclass.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
-
-import static com.epam.lab.beseda.util.ControllerMessage.*;
 
 @RestController
 @RequestMapping("/news/")

@@ -1,7 +1,6 @@
 package com.epam.lab.beseda.service.serviceclass;
 
 import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
-import com.epam.lab.beseda.dao.daointeface.RoleDAOInterface;
 import com.epam.lab.beseda.dao.daointeface.UserDAOInterface;
 import com.epam.lab.beseda.dto.UserDTO;
 import com.epam.lab.beseda.entity.Role;
@@ -9,10 +8,8 @@ import com.epam.lab.beseda.entity.User;
 import com.epam.lab.beseda.exception.EntityExistsException;
 import com.epam.lab.beseda.exception.ServiceLayerException;
 import com.epam.lab.beseda.service.modelmapper.Mapper;
-import com.epam.lab.beseda.service.modelmapper.RoleMapper;
 import com.epam.lab.beseda.service.modelmapper.UserMapper;
 import com.epam.lab.beseda.service.serviceinterface.UserServiceInterface;
-import com.epam.lab.beseda.service.validator.RoleValidator;
 import com.epam.lab.beseda.service.validator.UserValidator;
 import com.epam.lab.beseda.service.validator.Validatable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +21,13 @@ import static com.epam.lab.beseda.util.ServiceConstants.USER_WITH_LOGIN_EXISTS;
 @Service
 public class UserService extends AbstractService<User, UserDTO> implements UserServiceInterface {
 
-    @Autowired
-    private RoleMapper roleMapper;
-
-    @Autowired
-    private RoleDAOInterface roleDAO;
-
-    @Autowired
-    private RoleValidator roleValidator;
 
     public UserService() {
         super();
     }
 
-    public UserService(UserDAOInterface userDAO, RoleDAOInterface roleDAO, UserValidator validator, UserMapper mapper,
-                       RoleMapper roleMapper) {
+    public UserService(UserDAOInterface userDAO, UserValidator validator, UserMapper mapper) {
         super(userDAO, validator, mapper);
-        this.roleDAO = roleDAO;
-        this.roleMapper = roleMapper;
     }
 
     @Autowired
@@ -95,8 +81,6 @@ public class UserService extends AbstractService<User, UserDTO> implements UserS
                 oldUser.setRole(new Role(dto.getRole()));
             }
             dao.update(oldUser);
-        } else {
-            dto = null;
         }
         return mapper.toDto(oldUser);
     }

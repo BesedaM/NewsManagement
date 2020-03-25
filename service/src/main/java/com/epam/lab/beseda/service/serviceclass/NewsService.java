@@ -1,7 +1,6 @@
 package com.epam.lab.beseda.service.serviceclass;
 
 import com.epam.lab.beseda.dao.daointeface.AbstractDAOInterface;
-import com.epam.lab.beseda.dao.daointeface.AuthorDAOInterface;
 import com.epam.lab.beseda.dao.daointeface.NewsDAOInterface;
 import com.epam.lab.beseda.dao.daointeface.TagDAOInterface;
 import com.epam.lab.beseda.dto.AuthorDTO;
@@ -22,8 +21,6 @@ import com.epam.lab.beseda.service.validator.NewsValidator;
 import com.epam.lab.beseda.service.validator.TagValidator;
 import com.epam.lab.beseda.service.validator.Validatable;
 import com.epam.lab.beseda.util.DBConstants;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -33,15 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static com.epam.lab.beseda.util.LoggerName.DEBUG_LOGGER;
-
 @Service
 public class NewsService extends AbstractService<News, NewsDTO> implements NewsServiceInterface {
-
-    private Logger log= LogManager.getLogger(DEBUG_LOGGER);
-
-    @Autowired
-    private AuthorDAOInterface authorDAO;
 
     @Autowired
     private TagDAOInterface tagDAO;
@@ -60,11 +50,10 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
     public NewsService() {
     }
 
-    public NewsService(AuthorDAOInterface authorDAO, NewsDAOInterface newsDAO, TagDAOInterface tagDAO,
+    public NewsService(NewsDAOInterface newsDAO, TagDAOInterface tagDAO,
                        NewsValidator validator, TagValidator tagValidator, NewsMapper mapper,
                        AuthorMapper authorMapper, TagMapper enumEntityMapper) {
         super(newsDAO, validator, mapper);
-        this.authorDAO = authorDAO;
         this.tagDAO = tagDAO;
         this.authorMapper = authorMapper;
         this.tagMapper = enumEntityMapper;
@@ -105,10 +94,6 @@ public class NewsService extends AbstractService<News, NewsDTO> implements NewsS
         }
         if(param.equals(DBConstants.TAG)){
             newsDTOList.sort(new NewsTagsComparator());
-        }
-
-        for (NewsDTO news:newsDTOList) {
-            log.debug(news.getTags());
         }
 
         return newsDTOList;

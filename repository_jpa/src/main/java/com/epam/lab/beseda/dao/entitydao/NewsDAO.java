@@ -8,8 +8,6 @@ import com.epam.lab.beseda.entity.News;
 import com.epam.lab.beseda.entity.Tag;
 import com.epam.lab.beseda.exception.ParameterNotExistsException;
 import com.epam.lab.beseda.util.DBConstants;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +19,6 @@ import java.util.TreeSet;
 
 import static com.epam.lab.beseda.util.DBConstants.*;
 import static com.epam.lab.beseda.util.JpaParametersName.*;
-import static com.epam.lab.beseda.util.LoggerName.TRACE_LOGGER;
 import static com.epam.lab.beseda.util.Query.*;
 
 @Transactional
@@ -33,8 +30,6 @@ public class NewsDAO extends AbstractDAO<News> implements NewsDAOInterface {
 
     @Autowired
     private TagDAOInterface tagDAO;
-
-    private Logger log = LogManager.getLogger(TRACE_LOGGER);
 
     public NewsDAO() {
     }
@@ -130,7 +125,6 @@ public class NewsDAO extends AbstractDAO<News> implements NewsDAOInterface {
         entityManager.createNativeQuery(NEWS_TAG_DELETE_ALL_TAGS).setParameter(1, id).executeUpdate();
         entityManager.createNativeQuery(DELETE_NEWS_BY_ID).setParameter(1, id).executeUpdate();
     }
-
 
     @Override
     protected String getAllStatement() {

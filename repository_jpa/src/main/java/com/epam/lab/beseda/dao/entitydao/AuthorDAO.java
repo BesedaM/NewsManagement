@@ -62,8 +62,4 @@ public class AuthorDAO extends AbstractDAO<Author> implements AuthorDAOInterface
         return SELECT_ALL_AUTHORS;
     }
 
-    //    @Override
-//    public List<Integer> getNewsId(int authorId) {
-//        return jdbcTemplate.queryForList(NEWS_AUTHOR_GET_NEWS_ID, new Object[]{authorId}, Integer.class);
-//    }
 }
