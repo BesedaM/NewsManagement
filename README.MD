@@ -1,6 +1,7 @@
 <h2>NewsManagement project</h2>
 
 Проект выполнен на Spring Framework
+
 Согласно заданию проект разбит на 3 модуля:
 1. repository-jdbc - DAO выполнен на JdbcTemplate;
 2. service;
